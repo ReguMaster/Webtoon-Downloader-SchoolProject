@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebtoonDownloader_CapstoneProject.Core;
-using WebtoonDownloader_CapstoneProject.UI;
 using WebtoonDownloader_CapstoneProject.UI.Forms;
 
 namespace WebtoonDownloader_CapstoneProject
@@ -50,11 +43,16 @@ namespace WebtoonDownloader_CapstoneProject
 								this.WEBTOON_CURRENT_DOWNLOAD_PAGE_INFORMATION_PANEL.Visible = false;
 
 								this.WEBTOON_SELECT_BUTTON.Enabled = true;
-								this.WEBTOON_SELECT_BUTTON.Text = "다운로드 할 웹툰 선택";
+								this.WEBTOON_SELECT_BUTTON.Text = "웹툰 선택";
 								this.WEBTOON_DESELECT_BUTTON.Visible = false;
 								this.WEBTOON_DESELECT_BUTTON.Text = "다운로드 취소";
 
 								this.LOADING_GIFIMAGE.Visible = false;
+
+								this.SYSTEM_SHUTDOWN_CHECKBOX.Visible = false;
+								this.SYSTEM_SHUTDOWN_LABEL.Visible = false;
+
+								this.SYSTEM_SHUTDOWN_CHECKBOX.Status = false;
 								break;
 							case UIMode.DownloadReady:
 								NaverWebtoon.WebtoonListPageInformations? information = GlobalVar.GlobalListPageInformations;
@@ -88,6 +86,10 @@ namespace WebtoonDownloader_CapstoneProject
 								this.WEBTOON_DESELECT_BUTTON.Visible = true;
 								this.WEBTOON_DESELECT_BUTTON.Text = "다운로드 취소";
 								this.LOADING_GIFIMAGE.Visible = true;
+
+								this.SYSTEM_SHUTDOWN_CHECKBOX.Visible = true;
+								this.SYSTEM_SHUTDOWN_LABEL.Visible = true;
+
 								break;
 						}
 					} ) );
@@ -106,11 +108,16 @@ namespace WebtoonDownloader_CapstoneProject
 							this.WEBTOON_CURRENT_DOWNLOAD_PAGE_INFORMATION_PANEL.Visible = false;
 
 							this.WEBTOON_SELECT_BUTTON.Enabled = true;
-							this.WEBTOON_SELECT_BUTTON.Text = "다운로드 할 웹툰 선택";
+							this.WEBTOON_SELECT_BUTTON.Text = "웹툰 선택";
 							this.WEBTOON_DESELECT_BUTTON.Visible = false;
 							this.WEBTOON_DESELECT_BUTTON.Text = "다운로드 취소";
 
 							this.LOADING_GIFIMAGE.Visible = false;
+
+							this.SYSTEM_SHUTDOWN_CHECKBOX.Visible = false;
+							this.SYSTEM_SHUTDOWN_LABEL.Visible = false;
+
+							this.SYSTEM_SHUTDOWN_CHECKBOX.Status = false;
 							break;
 						case UIMode.DownloadReady:
 							NaverWebtoon.WebtoonListPageInformations? information = GlobalVar.GlobalListPageInformations;
@@ -144,6 +151,10 @@ namespace WebtoonDownloader_CapstoneProject
 							this.WEBTOON_DESELECT_BUTTON.Visible = true;
 							this.WEBTOON_DESELECT_BUTTON.Text = "다운로드 취소";
 							this.LOADING_GIFIMAGE.Visible = true;
+
+							this.SYSTEM_SHUTDOWN_CHECKBOX.Visible = true;
+							this.SYSTEM_SHUTDOWN_LABEL.Visible = true;
+
 							break;
 					}
 				}
@@ -154,8 +165,9 @@ namespace WebtoonDownloader_CapstoneProject
 		{
 			InitializeComponent( );
 
-			this.SetStyle( ControlStyles.OptimizedDoubleBuffer, true );
-			this.SetStyle( ControlStyles.ResizeRedraw, true );
+			this.SetStyle( ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true );
+			this.UpdateStyles( );
+
 			this.Opacity = 0;
 			this.UIModeVar = UIMode.Begin;
 		}
@@ -164,12 +176,21 @@ namespace WebtoonDownloader_CapstoneProject
 		{
 			( new WelcomeSplashForm( ) ).ShowDialog( );
 
+			//try
+			//{
+			//	throw new Exception( "TEST" );
+			//}
+			//catch ( Exception ex)
+			//{
+			//	Util.WriteErrorLog( ex );
+			//}
+			//this.Close( );
+
 			if ( this.Disposing || this.IsDisposed ) return;
 
 			Animation.UI.FadeIn( this );
 
-			this.VERSION_LABEL.Text = "버전 " + GlobalVar.APPLICATION_VER + " by © '4조 Inventive'";
-			//버전 1.0.0.0 by Copyright © '4조 Inventive' 2017
+			this.COPYRIGHT_LABEL.Text = "© '4조 Inventive'";
 
 			string gifImageHTML = @"
 			<html>
@@ -229,13 +250,14 @@ namespace WebtoonDownloader_CapstoneProject
 					}
 				};
 				form.ShowDialog( );
-
 			}
 			else if ( this.UIModeVar == UIMode.DownloadReady )
 			{
 				FolderBrowserDialog folderSelection = new FolderBrowserDialog( )
 				{
-					Description = "다운받은 웹툰이 저장될 폴더를 선택하세요"
+					Description = "다운받은 웹툰이 저장될 폴더를 선택하세요.",
+					ShowNewFolderButton = true,
+					RootFolder = Environment.SpecialFolder.Desktop
 				};
 
 				if ( folderSelection.ShowDialog( ) == DialogResult.OK )
@@ -243,7 +265,6 @@ namespace WebtoonDownloader_CapstoneProject
 					GlobalVar.DownloadThread = new Thread( ( ) =>
 					{
 						this.UIModeVar = UIMode.Downloading;
-
 
 						try
 						{
@@ -270,7 +291,7 @@ namespace WebtoonDownloader_CapstoneProject
 										if ( !this.WEBTOON_CURRENT_DOWNLOAD_PAGE_INFORMATION_PANEL.Visible )
 											this.WEBTOON_CURRENT_DOWNLOAD_PAGE_INFORMATION_PANEL.Visible = true;
 
-										this.WEBTOON_CURRENT_DOWNLOAD_PAGE_INFORMATION_PANEL.SetData( currentPage );
+										this.WEBTOON_CURRENT_DOWNLOAD_PAGE_INFORMATION_PANEL.SetData( currentPage, true );
 									} ) );
 								}
 								else
@@ -281,12 +302,10 @@ namespace WebtoonDownloader_CapstoneProject
 									if ( !this.WEBTOON_CURRENT_DOWNLOAD_PAGE_INFORMATION_PANEL.Visible )
 										this.WEBTOON_CURRENT_DOWNLOAD_PAGE_INFORMATION_PANEL.Visible = true;
 
-									this.WEBTOON_CURRENT_DOWNLOAD_PAGE_INFORMATION_PANEL.SetData( currentPage );
+									this.WEBTOON_CURRENT_DOWNLOAD_PAGE_INFORMATION_PANEL.SetData( currentPage, true );
 								}
 							}, ( float currentPercent, float totalPercent ) =>
 							{
-								//this.WEBTOON_CURRENT_DOWNLOAD_PAGE_INFORMATION_PANEL.SetPercent( currentPercent );
-
 								if ( this.InvokeRequired )
 								{
 									this.Invoke( new Action( ( ) =>
@@ -296,20 +315,37 @@ namespace WebtoonDownloader_CapstoneProject
 								}
 								else
 									this.WEBTOON_SELECT_BUTTON.Text = "다운로드 중 ... : " + ( ( int ) ( totalPercent * 100 ) ) + " %";
-
-							}, ( ) =>
+							}, ( bool success ) => // 다운로드가 모두 완료된 후 CallBack
 							{
 								GlobalVar.GlobalListPageInformations = null;
 
+								bool isEnabledShutdown = this.SYSTEM_SHUTDOWN_CHECKBOX.Status; // UIMode.Begin; 으로 UIModeVar을 바꾸면 Status가 초기화되므로 백업함
+
 								this.UIModeVar = UIMode.Begin;
 
-								NotifyBox.Show( this, "다운로드 완료", "Download Finished", "다운로드를 성공적으로 모두 마무리했습니다.", NotifyBox.NotifyBoxType.OK, NotifyBox.NotifyBoxIcon.Information );
+								if ( isEnabledShutdown )
+								{
+									this.Opacity = 0.5F;
+
+									ShutdownTimerForm form = new ShutdownTimerForm( )
+									{
+										Owner = this
+									};
+									form.ShowDialog( );
+
+									this.Opacity = 1F;
+								}
+								else
+									NotifyBox.Show( this, "다운로드 완료", "Download Finished", "다운로드를 성공적으로 모두 마무리했습니다.", NotifyBox.NotifyBoxType.OK, NotifyBox.NotifyBoxIcon.Information );
 
 								if ( GlobalVar.DownloadThread != null )
 								{
 									GlobalVar.DownloadThread.Interrupt( );
 									GlobalVar.DownloadThread = null;
 								}
+							}, ( string message ) =>
+							{
+								NotifyBox.Show( this, "다운로드 오류", "Download Error", message, NotifyBox.NotifyBoxType.OK, NotifyBox.NotifyBoxIcon.Error );
 							} );
 						}
 						catch ( ThreadAbortException )
@@ -323,11 +359,6 @@ namespace WebtoonDownloader_CapstoneProject
 					GlobalVar.DownloadThread.Start( );
 				}
 			}
-		}
-
-		private void INFO_BUTTON_Click( object sender, EventArgs e )
-		{
-
 		}
 
 		private bool APP_TITLE_BAR_BeginClose( )
@@ -347,8 +378,8 @@ namespace WebtoonDownloader_CapstoneProject
 					this.UIModeVar = UIMode.Begin;
 					return true;
 				}
-
-				return false;
+				else
+					return false;
 			}
 
 			return NotifyBox.Show( this, "종료", "Close", "정말로 웹툰 다운로더를 종료하시겠습니까?", NotifyBox.NotifyBoxType.YesNo, NotifyBox.NotifyBoxIcon.Question ) == NotifyBox.NotifyBoxResult.Yes;
@@ -373,47 +404,13 @@ namespace WebtoonDownloader_CapstoneProject
 			}
 			else if ( this.UIModeVar == UIMode.DownloadReady ) // 다운로드 준비 중 상태
 			{
-
 				this.UIModeVar = UIMode.Begin;
 			}
-
-
-			//if ( GlobalVar.DownloadThread != null )
-			//{
-			//	if ( NotifyBox.Show( this, "다운로드 취소", "Cancel", "정말로 다운로드를 취소하시겠습니까?", NotifyBox.NotifyBoxType.YesNo, NotifyBox.NotifyBoxIcon.Warning ) == NotifyBox.NotifyBoxResult.Yes )
-			//	{
-			//		GlobalVar.DownloadThread.Interrupt( );
-			//		GlobalVar.DownloadThread = null;
-
-			//		this.DOWNLOAD_INFORMATION_PANEL.SetDataToNull( );
-			//		GlobalVar.GlobalListPageInformations = null;
-
-			//		this.WEBTOON_DESELECT_BUTTON.Visible = false;
-			//		this.DOWNLOAD_STATUS_MESSAGE_LABEL.Visible = false;
-			//		this.DOWNLOAD_INFORMATION_PANEL.Visible = false;
-			//		this.WEBTOON_DESELECT_BUTTON.Text = "선택 취소";
-			//		this.WEBTOON_SELECT_BUTTON.Text = "웹툰 선택";
-			//		this.WEBTOON_SELECT_BUTTON.Enabled = true;
-			//		this.BACKGROUND_SPLASH.Visible = true;
-			//	}
-			//}
-			//else
-			//{
-			//	this.DOWNLOAD_INFORMATION_PANEL.SetDataToNull( );
-			//	GlobalVar.GlobalListPageInformations = null;
-
-			//	this.WEBTOON_DESELECT_BUTTON.Visible = false;
-			//	this.DOWNLOAD_INFORMATION_PANEL.Visible = false;
-			//	this.WEBTOON_DESELECT_BUTTON.Text = "선택 취소";
-			//	this.WEBTOON_SELECT_BUTTON.Text = "웹툰 선택";
-			//	this.WEBTOON_SELECT_BUTTON.Enabled = true;
-			//	this.BACKGROUND_SPLASH.Visible = true;
-			//}
 		}
 
-		private void APP_TITLE_BAR_Load( object sender, EventArgs e )
+		private void APP_TITLE_BAR_HelpButtonClicked( )
 		{
-
+			( new ProgramInformationForm( ) ).ShowDialog( );
 		}
 	}
 }

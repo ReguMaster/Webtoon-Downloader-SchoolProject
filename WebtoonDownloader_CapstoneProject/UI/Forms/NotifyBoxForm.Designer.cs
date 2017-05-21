@@ -29,6 +29,7 @@
 		private void InitializeComponent( )
 		{
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotifyBoxForm));
 			this.MESSAGE_LABEL = new System.Windows.Forms.Label();
 			this.OK_BUTTON = new WebtoonDownloader_CapstoneProject.UI.FlatButton();
 			this.APP_TITLE_BAR = new WebtoonDownloader_CapstoneProject.UI.APP_TITLE_BAR();
@@ -151,10 +152,11 @@
 			this.Controls.Add(this.MESSAGE_LABEL);
 			this.Controls.Add(this.APP_TITLE_BAR);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "NotifyBoxForm";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "NotifyBoxForm";
+			this.Text = "웹툰 다운로더";
 			this.Load += new System.EventHandler(this.NotifyBoxForm_Load);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.NotifyBoxForm_Paint);
 			((System.ComponentModel.ISupportInitialize)(this.COPY_BUTTON)).EndInit();

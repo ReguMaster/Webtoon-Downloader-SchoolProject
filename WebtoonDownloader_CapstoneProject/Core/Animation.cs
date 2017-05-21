@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WebtoonDownloader_CapstoneProject.Core
@@ -65,7 +61,6 @@ namespace WebtoonDownloader_CapstoneProject.Core
 				} );
 			}
 		}
-
 
 		public static void NumberSmoothEffect( int start, int end, Action<float> Callback, Action<float> AnimationEnd = null )
 		{

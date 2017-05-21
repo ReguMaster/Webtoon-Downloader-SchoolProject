@@ -145,10 +145,49 @@
   <data name="star" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\star.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WELCOME_SPLASH_BOTTOM" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Data\WELCOME_SPLASH_BOTTOM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="FLATCHECKBOX_OFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FLATCHECKBOX_OFF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WELCOME_SPLASH_TOP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Data\WELCOME_SPLASH_TOP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="FLATCHECKBOX_ON" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FLATCHECKBOX_ON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AUTHOR_30x30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AUTHOR_30x30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BLANK_THUMBNAIL_220x202" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BLANK_THUMBNAIL_220x202.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="APP_ICON_v2_50x50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\APP_ICON_v2_50x50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="INFO_ICON" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\INFO_ICON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WELCOME_SPLASH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Data\WELCOME_SPLASH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SYSTEM_SHUTDOWN_WARNING" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SYSTEM_SHUTDOWN_WARNING.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SEARCH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SEARCH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="storeIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\storeIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="APP_ICON_v2_100x100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\APP_ICON_v2_100x100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DOWN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DOWN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QUALITY_SAMPLE01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QUALITY_SAMPLE01.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RANDOM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RANDOM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

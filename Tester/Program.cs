@@ -11,6 +11,8 @@ using System.Net.Json;
 using System.Text.RegularExpressions;
 using System.Web;
 
+#pragma warning disable 0168
+
 namespace Tester
 {
 	class Program
@@ -21,7 +23,7 @@ namespace Tester
 			public string thumbnail;
 			public List<string> contents;
 			public string commentByAuthor;
-			public List<string> bestComments;
+			// public List<string> bestComments;
 		}
 
 		struct WebtoonListPageInformations
@@ -200,7 +202,7 @@ namespace Tester
 							Console.WriteLine( index + " >PAGE : " + thumbnailImageNode.GetAttributeValue( "src", "" ) + " / " + thumbnailImageClickerANode.GetAttributeValue( "href", "" ) + " / " + thumbnailImageNode.GetAttributeValue( "title", "" ) );
 							Console.WriteLine( starRateNode.InnerText );
 							Console.WriteLine( uploadDateNode.InnerText );
-							Console.WriteLine( "BGM : " + ( bgmAvaliable != null ).ToString() );
+							Console.WriteLine( "BGM : " + ( bgmAvaliable != null ).ToString( ) );
 
 							specificPageData.title = HttpUtility.HtmlDecode( thumbnailImageNode.GetAttributeValue( "title", "" ) );
 							specificPageData.thumbnail = thumbnailImageNode.GetAttributeValue( "src", "" );
@@ -274,7 +276,7 @@ namespace Tester
 
 							for ( int currentListPage = 1; currentListPage <= maxListPage; currentListPage++ )
 							{
-								if ( currentListPage != 8 ) continue; // for test
+								if ( currentListPage != 2 ) continue; // for test
 
 
 								Console.WriteLine( currentListPage + " / " + maxListPage );
@@ -392,15 +394,204 @@ namespace Tester
 			}
 		}
 
+		private static int GetMaxSpecificPageSearchPage( string url )
+		{
+			//http://comic.naver.com/search.nhn?m=webtoon&keyword=%EC%97%B0&type=title&page=2
+
+			try
+
+			{
+			url += "&page=99999999";
+
+			HttpWebRequest request = ( HttpWebRequest ) WebRequest.Create( url );
+			request.Method = "GET";
+			request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36";
+
+				using ( HttpWebResponse response = ( HttpWebResponse ) request.GetResponse( ) )
+				{
+					using ( Stream responseStream = response.GetResponseStream( ) )
+					{
+						HtmlDocument document = new HtmlDocument( );
+						document.Load( responseStream, Encoding.UTF8 );
+
+						//HtmlNode node = document.DocumentNode.SelectSingleNode( "//em[@class=\"num_page\"][ 1 ]" );
+
+						string count = "";
+
+						foreach ( HtmlNode node2 in document.DocumentNode.SelectNodes( "//em[@class=\"num_page\"]" ) )
+						{
+							count = node2.InnerText.Trim( );
+						}
+
+						return int.Parse( count );
+					}
+				}
+			}
+			catch ( Exception ex )
+			{
+				return -1;
+			}
+		}
+
+		public static string[ ] InternalSearchWebtoonDetailRequest( string url )
+		{
+			try
+			{
+				HttpWebRequest request = ( HttpWebRequest ) WebRequest.Create( url );
+				request.Method = "GET";
+				request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36";
+
+				using ( HttpWebResponse response = ( HttpWebResponse ) request.GetResponse( ) )
+				{
+					using ( Stream responseStream = response.GetResponseStream( ) )
+					{
+						HtmlDocument document = new HtmlDocument( );
+						document.Load( responseStream, Encoding.UTF8 );
+
+						string descriptionData = "";
+						string thumbnailData = "";
+
+						foreach ( HtmlNode node in document.DocumentNode.SelectNodes( "//meta" ) )
+						{
+							switch ( node.GetAttributeValue( "property", "" ) )
+							{
+								case "og:description":
+									descriptionData = node.GetAttributeValue( "content", "" );
+									break;
+								case "og:image":
+									thumbnailData = node.GetAttributeValue( "content", "" );
+									break;
+							}
+						}
+
+						return new string[ 2 ]
+						{
+							descriptionData,
+							thumbnailData
+						};
+					}
+				}
+			}
+			catch ( Exception ex )
+			{
+				return new string[ 2 ] { "", "" };
+			}
+		}
+
+		public static List<WebtoonSearchResultList> InternalSearchWebtoonRequest( string url, int page )
+		{
+			url += "&page=" + page;
+
+			HttpWebRequest request = ( HttpWebRequest ) WebRequest.Create( url );
+			request.Method = "GET";
+			request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36";
+
+			using ( HttpWebResponse response = ( HttpWebResponse ) request.GetResponse( ) )
+			{
+				using ( Stream responseStream = response.GetResponseStream( ) )
+				{
+					//using ( StreamReader reader = new StreamReader( responseStream, Encoding.UTF8 ) )
+					//{
+					//	string html = reader.ReadToEnd( );
+
+					//<meta property="og:description" content="82화 - 귀영 (3화)">
+
+
+					HtmlDocument document = new HtmlDocument( );
+					document.Load( responseStream, Encoding.UTF8 );
+
+					List<WebtoonSearchResultList> result = new List<WebtoonSearchResultList>( );
+
+					for ( int i = 1; i <= document.DocumentNode.SelectNodes( "//ul[@class=\"resultList\"]/li" ).Count; i++ )
+					{
+						WebtoonSearchResultList data = new WebtoonSearchResultList( );
+
+						HtmlNode aNode = document.DocumentNode.SelectSingleNode( "//ul[@class=\"resultList\"]/li[ " + i + "]/h5/a" );
+						HtmlNode authorNode = document.DocumentNode.SelectSingleNode( "//ul[@class=\"resultList\"]/li[ " + i + "]/ul[1]/li[1]/em/a" );
+						HtmlNode genreNode = document.DocumentNode.SelectSingleNode( "//ul[@class=\"resultList\"]/li[ " + i + "]/ul[1]/li[2]/em" );
+						HtmlNode totalNumNode = document.DocumentNode.SelectSingleNode( "//ul[@class=\"resultList\"]/li[ " + i + "]/ul[1]/li[3]/em" );
+						HtmlNode isStoreWebtoonNode = document.DocumentNode.SelectSingleNode( "//ul[@class=\"resultList\"]/li[ " + i + "]/h5/span[@class=\"ico_store\"]" );
+						HtmlNode isAdultWebtoonNode = document.DocumentNode.SelectSingleNode( "//ul[@class=\"resultList\"]/li[ " + i + "]/h5/span[@class=\"mark_adult\"]" );
+
+
+						data.title = aNode.InnerText;
+						data.author = authorNode.InnerText;
+						data.genre = genreNode.InnerText;
+						data.totalNum = int.Parse( totalNumNode.InnerText.Replace( "회", "" ) );
+						data.url = "http://comic.naver.com" + aNode.GetAttributeValue( "href", "" );
+						data.metaData = new bool[ 2 ]
+						{
+							isStoreWebtoonNode != null,
+							isAdultWebtoonNode != null
+						};
+
+						string[ ] detailResult = InternalSearchWebtoonDetailRequest( data.url );
+
+						data.description = detailResult[ 0 ];
+						data.thumbnail = detailResult[ 1 ];
+						
+						//Console.WriteLine( aNode.InnerText );
+						//Console.WriteLine( "http://comic.naver.com" + aNode.GetAttributeValue( "href", "" ) );
+						//Console.WriteLine( authorNode.InnerText.Trim( ) );
+						//Console.WriteLine( genreNode.InnerText.Trim( ) );
+						//Console.WriteLine( totalNumNode.InnerText.Trim( ) );
+						//Console.WriteLine( isStoreWebtoonNode != null ? "스토어웹툰" : "스토어 아님" );
+						//Console.WriteLine( isAdultWebtoonNode != null ? "19" : "19 X" );
+
+						result.Add( data );
+					}
+
+					return result;
+				}
+			}
+		}
+
+		public struct WebtoonSearchResultList
+		{
+			public string title;
+			public string description;
+			public string thumbnail;
+			public string author;
+			public string genre;
+			public int totalNum;
+			public string url;
+			public bool[ ] metaData;
+		}
+
+		public static List<WebtoonSearchResultList> SearchWebtoonByTitle( string title )
+		{
+			string url = "http://comic.naver.com/search.nhn?m=webtoon&keyword=" + HttpUtility.UrlEncode( title, Encoding.UTF8 ) + "&type=title";
+			int maxPage = GetMaxSpecificPageSearchPage( url );
+
+			List<WebtoonSearchResultList> result = new List<WebtoonSearchResultList>( );
+
+			if ( maxPage > 0 )
+			{
+				for ( int currentPage = 1; currentPage <= maxPage; currentPage++ )
+				{
+					result = InternalSearchWebtoonRequest( url, currentPage ).Concat( result ).ToList( );
+				}
+			}
+
+			return result;
+		}
+
 		static void Main( string[ ] args )
 		{
-			string url = "http://comic.naver.com/webtoon/detail.nhn?titleId=679519&no=90&weekday=thu"; //"http://comic.naver.com/webtoon/detail.nhn?titleId=570503&no=92";
+			//string url = "http://comic.naver.com/webtoon/detail.nhn?titleId=679519&no=90&weekday=thu"; //"http://comic.naver.com/webtoon/detail.nhn?titleId=570503&no=92";
 
 			//GetPageInformations( "http://comic.naver.com/webtoon/list.nhn?titleId=679519&weekday=thu" );
 
 			//Console.WriteLine( GetPageBGMUrl( url ) );
 			//GetDetailPageInformations( url );
-			GetWebtoonListPageInformations( "http://comic.naver.com/webtoon/list.nhn?titleId=570503" );
+			//	GetWebtoonListPageInformations( "http://comic.naver.com/webtoon/list.nhn?titleId=679519&weekday=thu" );
+			var list = SearchWebtoonByTitle( "연" );
+
+			foreach ( var i in list )
+			{
+				Console.WriteLine( i.title + " - " + i.description );
+				Console.WriteLine( i.genre  );
+			}
 			//while(true)
 			//{
 

@@ -29,8 +29,7 @@
 		private void InitializeComponent( )
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-			this.VERSION_LABEL = new System.Windows.Forms.Label();
-			this.BACKGROUND_SPLASH = new System.Windows.Forms.PictureBox();
+			this.COPYRIGHT_LABEL = new System.Windows.Forms.Label();
 			this.WEBTOON_DESELECT_BUTTON = new WebtoonDownloader_CapstoneProject.UI.FlatButton();
 			this.WEBTOON_CURRENT_DOWNLOAD_PAGE_INFORMATION_PANEL = new WebtoonDownloader_CapstoneProject.UI.Forms.WebtoonDownloadInformationForMainForm();
 			this.WEBTOON_SELECT_BUTTON = new WebtoonDownloader_CapstoneProject.UI.FlatButton();
@@ -38,32 +37,28 @@
 			this.DOWNLOAD_INFORMATION_PANEL_TITLE = new System.Windows.Forms.Label();
 			this.WEBTOON_DOWN_READY_INFORMATION_PANEL = new WebtoonDownloader_CapstoneProject.UI.Forms.WebtoonDownloadInformationForWebtoonSelectForm();
 			this.LOADING_GIFIMAGE = new System.Windows.Forms.WebBrowser();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.DOWNLOAD_READY_IMAGE = new System.Windows.Forms.PictureBox();
-			((System.ComponentModel.ISupportInitialize)(this.BACKGROUND_SPLASH)).BeginInit();
+			this.BACKGROUND_SPLASH = new System.Windows.Forms.PictureBox();
+			this.SYSTEM_SHUTDOWN_CHECKBOX = new WebtoonDownloader_CapstoneProject.UI.FlatCheckBox();
+			this.SYSTEM_SHUTDOWN_LABEL = new System.Windows.Forms.Label();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DOWNLOAD_READY_IMAGE)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.BACKGROUND_SPLASH)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.SYSTEM_SHUTDOWN_CHECKBOX)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// VERSION_LABEL
+			// COPYRIGHT_LABEL
 			// 
-			this.VERSION_LABEL.AutoSize = true;
-			this.VERSION_LABEL.BackColor = System.Drawing.Color.Transparent;
-			this.VERSION_LABEL.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.VERSION_LABEL.Location = new System.Drawing.Point(12, 373);
-			this.VERSION_LABEL.Name = "VERSION_LABEL";
-			this.VERSION_LABEL.Size = new System.Drawing.Size(270, 14);
-			this.VERSION_LABEL.TabIndex = 2;
-			this.VERSION_LABEL.Text = "버전 1.0.0.0 by Copyright © \'4조 Inventive\' 2017";
-			this.VERSION_LABEL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// BACKGROUND_SPLASH
-			// 
-			this.BACKGROUND_SPLASH.BackColor = System.Drawing.Color.Transparent;
-			this.BACKGROUND_SPLASH.Image = global::WebtoonDownloader_CapstoneProject.Properties.Resources.BACKGROUND_IMAGE;
-			this.BACKGROUND_SPLASH.Location = new System.Drawing.Point(15, 70);
-			this.BACKGROUND_SPLASH.Name = "BACKGROUND_SPLASH";
-			this.BACKGROUND_SPLASH.Size = new System.Drawing.Size(500, 300);
-			this.BACKGROUND_SPLASH.TabIndex = 3;
-			this.BACKGROUND_SPLASH.TabStop = false;
+			this.COPYRIGHT_LABEL.AutoSize = true;
+			this.COPYRIGHT_LABEL.BackColor = System.Drawing.Color.Transparent;
+			this.COPYRIGHT_LABEL.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.COPYRIGHT_LABEL.Location = new System.Drawing.Point(12, 373);
+			this.COPYRIGHT_LABEL.Name = "COPYRIGHT_LABEL";
+			this.COPYRIGHT_LABEL.Size = new System.Drawing.Size(130, 14);
+			this.COPYRIGHT_LABEL.TabIndex = 2;
+			this.COPYRIGHT_LABEL.Text = "© \'4조 Inventive\' 2017";
+			this.COPYRIGHT_LABEL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// WEBTOON_DESELECT_BUTTON
 			// 
@@ -118,15 +113,16 @@
 			this.APP_TITLE_BAR.BackColor = System.Drawing.Color.Transparent;
 			this.APP_TITLE_BAR.EnglishText = "Webtoon Downloader";
 			this.APP_TITLE_BAR.KoreanText = "웹툰 다운로더";
-			this.APP_TITLE_BAR.Location = new System.Drawing.Point(0, 0);
+			this.APP_TITLE_BAR.Location = new System.Drawing.Point(60, 0);
 			this.APP_TITLE_BAR.Name = "APP_TITLE_BAR";
 			this.APP_TITLE_BAR.ShowClose = true;
+			this.APP_TITLE_BAR.ShowHelp = true;
 			this.APP_TITLE_BAR.ShowMinimize = true;
-			this.APP_TITLE_BAR.Size = new System.Drawing.Size(750, 70);
+			this.APP_TITLE_BAR.Size = new System.Drawing.Size(690, 70);
 			this.APP_TITLE_BAR.TabIndex = 0;
 			this.APP_TITLE_BAR.TextColor = System.Drawing.Color.Black;
 			this.APP_TITLE_BAR.BeginClose += new System.Func<bool>(this.APP_TITLE_BAR_BeginClose);
-			this.APP_TITLE_BAR.Load += new System.EventHandler(this.APP_TITLE_BAR_Load);
+			this.APP_TITLE_BAR.HelpButtonClicked += new System.Action(this.APP_TITLE_BAR_HelpButtonClicked);
 			// 
 			// DOWNLOAD_INFORMATION_PANEL_TITLE
 			// 
@@ -164,6 +160,15 @@
 			this.LOADING_GIFIMAGE.Visible = false;
 			this.LOADING_GIFIMAGE.WebBrowserShortcutsEnabled = false;
 			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.Image = global::WebtoonDownloader_CapstoneProject.Properties.Resources.APP_ICON_v2_50x50;
+			this.pictureBox1.Location = new System.Drawing.Point(10, 10);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(50, 50);
+			this.pictureBox1.TabIndex = 15;
+			this.pictureBox1.TabStop = false;
+			// 
 			// DOWNLOAD_READY_IMAGE
 			// 
 			this.DOWNLOAD_READY_IMAGE.BackColor = System.Drawing.Color.Transparent;
@@ -175,22 +180,62 @@
 			this.DOWNLOAD_READY_IMAGE.TabIndex = 14;
 			this.DOWNLOAD_READY_IMAGE.TabStop = false;
 			// 
+			// BACKGROUND_SPLASH
+			// 
+			this.BACKGROUND_SPLASH.BackColor = System.Drawing.Color.Transparent;
+			this.BACKGROUND_SPLASH.Image = global::WebtoonDownloader_CapstoneProject.Properties.Resources.BACKGROUND_IMAGE;
+			this.BACKGROUND_SPLASH.Location = new System.Drawing.Point(15, 70);
+			this.BACKGROUND_SPLASH.Name = "BACKGROUND_SPLASH";
+			this.BACKGROUND_SPLASH.Size = new System.Drawing.Size(500, 300);
+			this.BACKGROUND_SPLASH.TabIndex = 3;
+			this.BACKGROUND_SPLASH.TabStop = false;
+			// 
+			// SYSTEM_SHUTDOWN_CHECKBOX
+			// 
+			this.SYSTEM_SHUTDOWN_CHECKBOX.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+			this.SYSTEM_SHUTDOWN_CHECKBOX.BackColor = System.Drawing.Color.Transparent;
+			this.SYSTEM_SHUTDOWN_CHECKBOX.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.SYSTEM_SHUTDOWN_CHECKBOX.Image = ((System.Drawing.Image)(resources.GetObject("SYSTEM_SHUTDOWN_CHECKBOX.Image")));
+			this.SYSTEM_SHUTDOWN_CHECKBOX.Location = new System.Drawing.Point(221, 360);
+			this.SYSTEM_SHUTDOWN_CHECKBOX.Name = "SYSTEM_SHUTDOWN_CHECKBOX";
+			this.SYSTEM_SHUTDOWN_CHECKBOX.Size = new System.Drawing.Size(30, 30);
+			this.SYSTEM_SHUTDOWN_CHECKBOX.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.SYSTEM_SHUTDOWN_CHECKBOX.Status = false;
+			this.SYSTEM_SHUTDOWN_CHECKBOX.TabIndex = 21;
+			this.SYSTEM_SHUTDOWN_CHECKBOX.TabStop = false;
+			// 
+			// SYSTEM_SHUTDOWN_LABEL
+			// 
+			this.SYSTEM_SHUTDOWN_LABEL.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+			this.SYSTEM_SHUTDOWN_LABEL.AutoSize = true;
+			this.SYSTEM_SHUTDOWN_LABEL.BackColor = System.Drawing.Color.Transparent;
+			this.SYSTEM_SHUTDOWN_LABEL.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.SYSTEM_SHUTDOWN_LABEL.Location = new System.Drawing.Point(259, 368);
+			this.SYSTEM_SHUTDOWN_LABEL.Name = "SYSTEM_SHUTDOWN_LABEL";
+			this.SYSTEM_SHUTDOWN_LABEL.Size = new System.Drawing.Size(115, 15);
+			this.SYSTEM_SHUTDOWN_LABEL.TabIndex = 20;
+			this.SYSTEM_SHUTDOWN_LABEL.Text = "완료 후 시스템 종료";
+			this.SYSTEM_SHUTDOWN_LABEL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.White;
 			this.ClientSize = new System.Drawing.Size(750, 400);
-			this.Controls.Add(this.WEBTOON_DOWN_READY_INFORMATION_PANEL);
+			this.Controls.Add(this.SYSTEM_SHUTDOWN_CHECKBOX);
+			this.Controls.Add(this.SYSTEM_SHUTDOWN_LABEL);
+			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.LOADING_GIFIMAGE);
 			this.Controls.Add(this.DOWNLOAD_INFORMATION_PANEL_TITLE);
 			this.Controls.Add(this.WEBTOON_DESELECT_BUTTON);
-			this.Controls.Add(this.VERSION_LABEL);
+			this.Controls.Add(this.COPYRIGHT_LABEL);
 			this.Controls.Add(this.WEBTOON_SELECT_BUTTON);
 			this.Controls.Add(this.APP_TITLE_BAR);
 			this.Controls.Add(this.WEBTOON_CURRENT_DOWNLOAD_PAGE_INFORMATION_PANEL);
 			this.Controls.Add(this.DOWNLOAD_READY_IMAGE);
 			this.Controls.Add(this.BACKGROUND_SPLASH);
+			this.Controls.Add(this.WEBTOON_DOWN_READY_INFORMATION_PANEL);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MainForm";
@@ -198,8 +243,10 @@
 			this.Text = "웹툰 다운로더";
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
-			((System.ComponentModel.ISupportInitialize)(this.BACKGROUND_SPLASH)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DOWNLOAD_READY_IMAGE)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.BACKGROUND_SPLASH)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.SYSTEM_SHUTDOWN_CHECKBOX)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -208,7 +255,7 @@
 		#endregion
 		private UI.APP_TITLE_BAR APP_TITLE_BAR;
 		private UI.FlatButton WEBTOON_SELECT_BUTTON;
-		private System.Windows.Forms.Label VERSION_LABEL;
+		private System.Windows.Forms.Label COPYRIGHT_LABEL;
 		private System.Windows.Forms.PictureBox BACKGROUND_SPLASH;
 		private UI.Forms.WebtoonDownloadInformationForMainForm WEBTOON_CURRENT_DOWNLOAD_PAGE_INFORMATION_PANEL;
 		private UI.FlatButton WEBTOON_DESELECT_BUTTON;
@@ -216,5 +263,8 @@
 		private UI.Forms.WebtoonDownloadInformationForWebtoonSelectForm WEBTOON_DOWN_READY_INFORMATION_PANEL;
 		private System.Windows.Forms.WebBrowser LOADING_GIFIMAGE;
 		private System.Windows.Forms.PictureBox DOWNLOAD_READY_IMAGE;
+		private System.Windows.Forms.PictureBox pictureBox1;
+		private UI.FlatCheckBox SYSTEM_SHUTDOWN_CHECKBOX;
+		private System.Windows.Forms.Label SYSTEM_SHUTDOWN_LABEL;
 	}
 }

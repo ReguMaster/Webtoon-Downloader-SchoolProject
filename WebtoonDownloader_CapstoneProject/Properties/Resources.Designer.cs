@@ -73,9 +73,49 @@ namespace WebtoonDownloader_CapstoneProject.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap APP_ICON_v2_100x100 {
+            get {
+                object obj = ResourceManager.GetObject("APP_ICON_v2_100x100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap APP_ICON_v2_50x50 {
+            get {
+                object obj = ResourceManager.GetObject("APP_ICON_v2_50x50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap AUTHOR_30x30 {
+            get {
+                object obj = ResourceManager.GetObject("AUTHOR_30x30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap BACKGROUND_IMAGE {
             get {
                 object obj = ResourceManager.GetObject("BACKGROUND_IMAGE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap BLANK_THUMBNAIL_220x202 {
+            get {
+                object obj = ResourceManager.GetObject("BLANK_THUMBNAIL_220x202", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +153,49 @@ namespace WebtoonDownloader_CapstoneProject.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap DOWN {
+            get {
+                object obj = ResourceManager.GetObject("DOWN", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap ERROR_ICON {
             get {
                 object obj = ResourceManager.GetObject("ERROR_ICON", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap FLATCHECKBOX_OFF {
+            get {
+                object obj = ResourceManager.GetObject("FLATCHECKBOX_OFF", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap FLATCHECKBOX_ON {
+            get {
+                object obj = ResourceManager.GetObject("FLATCHECKBOX_ON", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap HD {
+            get {
+                object obj = ResourceManager.GetObject("HD", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +213,49 @@ namespace WebtoonDownloader_CapstoneProject.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap INFO_ICON {
+            get {
+                object obj = ResourceManager.GetObject("INFO_ICON", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap MINIMIZE {
             get {
                 object obj = ResourceManager.GetObject("MINIMIZE", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap QUALITY_SAMPLE01 {
+            get {
+                object obj = ResourceManager.GetObject("QUALITY_SAMPLE01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap RANDOM {
+            get {
+                object obj = ResourceManager.GetObject("RANDOM", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap SEARCH {
+            get {
+                object obj = ResourceManager.GetObject("SEARCH", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +273,9 @@ namespace WebtoonDownloader_CapstoneProject.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap WELCOME_SPLASH_BOTTOM {
+        internal static System.Drawing.Bitmap storeIcon {
             get {
-                object obj = ResourceManager.GetObject("WELCOME_SPLASH_BOTTOM", resourceCulture);
+                object obj = ResourceManager.GetObject("storeIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,9 +283,19 @@ namespace WebtoonDownloader_CapstoneProject.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap WELCOME_SPLASH_TOP {
+        internal static System.Drawing.Bitmap SYSTEM_SHUTDOWN_WARNING {
             get {
-                object obj = ResourceManager.GetObject("WELCOME_SPLASH_TOP", resourceCulture);
+                object obj = ResourceManager.GetObject("SYSTEM_SHUTDOWN_WARNING", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap WELCOME_SPLASH {
+            get {
+                object obj = ResourceManager.GetObject("WELCOME_SPLASH", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

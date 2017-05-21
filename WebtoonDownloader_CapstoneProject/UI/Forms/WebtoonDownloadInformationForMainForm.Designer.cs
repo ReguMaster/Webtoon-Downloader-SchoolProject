@@ -43,7 +43,7 @@
 			// 
 			this.WEBTOON_DETAIL_UPLOAD_DATE_LABEL.BackColor = System.Drawing.Color.Transparent;
 			this.WEBTOON_DETAIL_UPLOAD_DATE_LABEL.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold);
-			this.WEBTOON_DETAIL_UPLOAD_DATE_LABEL.Location = new System.Drawing.Point(259, 98);
+			this.WEBTOON_DETAIL_UPLOAD_DATE_LABEL.Location = new System.Drawing.Point(270, 96);
 			this.WEBTOON_DETAIL_UPLOAD_DATE_LABEL.Name = "WEBTOON_DETAIL_UPLOAD_DATE_LABEL";
 			this.WEBTOON_DETAIL_UPLOAD_DATE_LABEL.Size = new System.Drawing.Size(94, 25);
 			this.WEBTOON_DETAIL_UPLOAD_DATE_LABEL.TabIndex = 14;
@@ -66,7 +66,7 @@
 			// 
 			this.WEBTOON_DETAIL_STAR_RATE_LABEL.BackColor = System.Drawing.Color.Transparent;
 			this.WEBTOON_DETAIL_STAR_RATE_LABEL.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.WEBTOON_DETAIL_STAR_RATE_LABEL.Location = new System.Drawing.Point(208, 98);
+			this.WEBTOON_DETAIL_STAR_RATE_LABEL.Location = new System.Drawing.Point(219, 96);
 			this.WEBTOON_DETAIL_STAR_RATE_LABEL.Name = "WEBTOON_DETAIL_STAR_RATE_LABEL";
 			this.WEBTOON_DETAIL_STAR_RATE_LABEL.Size = new System.Drawing.Size(45, 25);
 			this.WEBTOON_DETAIL_STAR_RATE_LABEL.TabIndex = 16;
@@ -77,7 +77,7 @@
 			// 
 			this.UPLOAD_DATE_IMAGE.BackColor = System.Drawing.Color.Transparent;
 			this.UPLOAD_DATE_IMAGE.Image = global::WebtoonDownloader_CapstoneProject.Properties.Resources.date;
-			this.UPLOAD_DATE_IMAGE.Location = new System.Drawing.Point(291, 65);
+			this.UPLOAD_DATE_IMAGE.Location = new System.Drawing.Point(302, 63);
 			this.UPLOAD_DATE_IMAGE.Name = "UPLOAD_DATE_IMAGE";
 			this.UPLOAD_DATE_IMAGE.Size = new System.Drawing.Size(30, 30);
 			this.UPLOAD_DATE_IMAGE.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -88,7 +88,7 @@
 			// 
 			this.STAR_RATE_IMAGE.BackColor = System.Drawing.Color.Transparent;
 			this.STAR_RATE_IMAGE.Image = global::WebtoonDownloader_CapstoneProject.Properties.Resources.star;
-			this.STAR_RATE_IMAGE.Location = new System.Drawing.Point(215, 65);
+			this.STAR_RATE_IMAGE.Location = new System.Drawing.Point(226, 63);
 			this.STAR_RATE_IMAGE.Name = "STAR_RATE_IMAGE";
 			this.STAR_RATE_IMAGE.Size = new System.Drawing.Size(30, 30);
 			this.STAR_RATE_IMAGE.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -117,7 +117,7 @@
 			this.Controls.Add(this.THUMBNAIL_IMAGE);
 			this.Name = "WebtoonDownloadInformationForMainForm";
 			this.Size = new System.Drawing.Size(650, 125);
-			this.Load += new System.EventHandler(this.WebtoonDownloadInformationForMainForm_Load);
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.WebtoonDownloadInformationForMainForm_Paint);
 			((System.ComponentModel.ISupportInitialize)(this.UPLOAD_DATE_IMAGE)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.STAR_RATE_IMAGE)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.THUMBNAIL_IMAGE)).EndInit();

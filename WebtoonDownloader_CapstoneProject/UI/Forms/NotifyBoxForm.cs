@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Media;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebtoonDownloader_CapstoneProject.Core;
 using static WebtoonDownloader_CapstoneProject.Core.NotifyBox;
@@ -26,8 +20,8 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 		{
 			InitializeComponent( );
 
-			this.SetStyle( ControlStyles.OptimizedDoubleBuffer, true );
-			this.SetStyle( ControlStyles.ResizeRedraw, true );
+			this.SetStyle( ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true );
+			this.UpdateStyles( );
 			this.Opacity = 0;
 
 			switch ( icon )
@@ -131,7 +125,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 						this.lineDrawer = new Pen( this.lineDrawer.Color == Color.Silver ? Color.DarkRed : Color.Silver );
 
 
-						Util.Delay( 100 );
+						Util.AppliactionDelay( 100 );
 					}
 
 					this.lineDrawer = new Pen( Color.DarkRed );

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebtoonDownloader_CapstoneProject.Core;
 
@@ -23,8 +17,8 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 		{
 			InitializeComponent( );
 
-			this.SetStyle( ControlStyles.OptimizedDoubleBuffer, true );
-			this.SetStyle( ControlStyles.ResizeRedraw, true );
+			this.SetStyle( ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true );
+			this.UpdateStyles( );
 		}
 
 		private void WebtoonDownloadInformationForWebtoonSelectForm_Load( object sender, EventArgs e )
@@ -39,9 +33,17 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 				this.Invoke( new Action( ( ) =>
 				{
 					this.WEBTOON_LIST_TITLE_LABEL.Text = data.title;
-					this.WEBTOON_LIST_AUTHOR_LABEL.Text = "by " + data.author;
+					this.WEBTOON_LIST_AUTHOR_LABEL.Text = data.author;
 					this.WEBTOON_LIST_DESC_LABEL.Text = data.description;
-					this.THUMBNAIL_IMAGE.Load( data.thumbnail );
+
+					try
+					{
+						this.THUMBNAIL_IMAGE.Load( data.thumbnail );
+					}
+					catch
+					{
+						NotifyBox.Show( null, "오류", "Error", "죄송합니다, 해당 웹툰의 썸네일 이미지를 불러올 수 없었습니다.", NotifyBox.NotifyBoxType.OK, NotifyBox.NotifyBoxIcon.Error );
+					}
 
 					this.informations = data;
 				} ) );
@@ -49,13 +51,20 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			else
 			{
 				this.WEBTOON_LIST_TITLE_LABEL.Text = data.title;
-				this.WEBTOON_LIST_AUTHOR_LABEL.Text = "by " + data.author;
+				this.WEBTOON_LIST_AUTHOR_LABEL.Text = data.author;
 				this.WEBTOON_LIST_DESC_LABEL.Text = data.description;
-				this.THUMBNAIL_IMAGE.Load( data.thumbnail );
+
+				try
+				{
+					this.THUMBNAIL_IMAGE.Load( data.thumbnail );
+				}
+				catch
+				{
+					NotifyBox.Show( null, "오류", "Error", "죄송합니다, 해당 웹툰의 썸네일 이미지를 불러올 수 없었습니다.", NotifyBox.NotifyBoxType.OK, NotifyBox.NotifyBoxIcon.Error );
+				}
 
 				this.informations = data;
 			}
-			
 		}
 
 		public void SetData( bool falseVar )

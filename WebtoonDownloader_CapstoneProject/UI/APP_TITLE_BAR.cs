@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebtoonDownloader_CapstoneProject.Core;
 
@@ -72,6 +66,20 @@ namespace WebtoonDownloader_CapstoneProject.UI
 			}
 		}
 
+		private bool ShowHelp_private = false;
+		public bool ShowHelp
+		{
+			get
+			{
+				return ShowHelp_private;
+			}
+			set
+			{
+				ShowHelp_private = value;
+				this.HELP_BUTTON.Visible = value;
+			}
+		}
+
 		private Color TextColor_private = Color.Black;
 		public Color TextColor
 		{
@@ -88,6 +96,7 @@ namespace WebtoonDownloader_CapstoneProject.UI
 		}
 
 		public event Func<bool> BeginClose;
+		public event Action HelpButtonClicked;
 
 		public APP_TITLE_BAR( )
 		{
@@ -95,6 +104,8 @@ namespace WebtoonDownloader_CapstoneProject.UI
 
 			this.SetStyle( ControlStyles.OptimizedDoubleBuffer, true );
 			this.SetStyle( ControlStyles.ResizeRedraw, true );
+
+			this.ShowHelp = false;
 		}
 
 		private void APP_TITLE_BAR_Load( object sender, EventArgs e )
@@ -117,6 +128,11 @@ namespace WebtoonDownloader_CapstoneProject.UI
 		private void MINIMIZE_BUTTON_Click( object sender, EventArgs e )
 		{
 			this.ParentForm.WindowState = FormWindowState.Minimized;
+		}
+
+		private void HELP_BUTTON_Click( object sender, EventArgs e )
+		{
+			HelpButtonClicked?.Invoke( );
 		}
 
 		private void APP_TITLE_BAR_MouseDown( object sender, MouseEventArgs e )

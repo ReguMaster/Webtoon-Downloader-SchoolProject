@@ -1,15 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebtoonDownloader_CapstoneProject.Core;
 
 namespace WebtoonDownloader_CapstoneProject.UI
 {
+	class FlatTrackBar : TrackBar
+	{
+		public FlatTrackBar( )
+		{
+			this.SetStyle( ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true );
+			this.UpdateStyles( );
+		}
+
+		protected override void OnValueChanged( EventArgs e )
+		{
+			base.OnValueChanged( e );
+
+			this.Invalidate( );
+		}
+
+		// Paint by MetroFramework Library
+		protected override void OnPaint( PaintEventArgs e )
+		{
+			//e.Graphics.FillRectangle( Brushes.Silver, ClientRectangle);
+			TrackBarRenderer.DrawHorizontalTrack( e.Graphics, ClientRectangle );
+			TrackBarRenderer.DrawHorizontalThumb( e.Graphics, ClientRectangle, System.Windows.Forms.VisualStyles.TrackBarThumbState.Normal );
+			//var g = e.Graphics;
+
+			//base.OnPaint( e );
+
+			//int trackX = (int) ( ( ( ( double ) this.Value ) / ( ( double ) this.Maximum ) ) * ( double ) this.Maximum );
+
+			//using ( SolidBrush b = new SolidBrush( Color.Silver ) )
+			//{
+			//	Rectangle barRect = new Rectangle( trackX + 7, Height / 2 - 2, Width - trackX + 7, 4 );
+			//	g.FillRectangle( b, barRect );
+			//}
+
+			//using ( SolidBrush b = new SolidBrush( Color.Blue ) )
+			//{
+			//	Rectangle barRect = new Rectangle( 0, Height / 2 - 2, trackX, 4 );
+			//	g.FillRectangle( b, barRect );
+
+			//	Rectangle thumbRect = new Rectangle( trackX, Height / 2 - 8, 6, 16 );
+			//	g.FillRectangle( b, thumbRect );
+			//}
+		}
+	}
+	
 	//http://stackoverflow.com/questions/16989957/drawing-over-richtextbox
 	class RichBox : RichTextBox
 	{
@@ -51,7 +93,7 @@ namespace WebtoonDownloader_CapstoneProject.UI
 		{
 			base.SetStyle( ControlStyles.SupportsTransparentBackColor | ControlStyles.OptimizedDoubleBuffer, true );
 
-		
+
 			base.Font = new Font( "나눔고딕", 9F, FontStyle.Regular, GraphicsUnit.Point, ( ( byte ) ( 129 ) ) );
 			base.BackColor = Color.Transparent;
 		}
@@ -70,15 +112,25 @@ namespace WebtoonDownloader_CapstoneProject.UI
 		{
 			if ( m.Msg == WM_PAINT )
 			{
-				
+
 				base.WndProc( ref m );
 
-				
+
 			}
 			else
 			{
 				base.WndProc( ref m );
 			}
+		}
+	}
+
+	// http://stackoverflow.com/questions/818415/how-do-i-double-buffer-a-panel-in-c
+	public class DoubleBufferPanel : Panel
+	{
+		public DoubleBufferPanel( )
+		{
+			this.SetStyle( ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true );
+			this.UpdateStyles( );
 		}
 	}
 
@@ -540,5 +592,44 @@ namespace WebtoonDownloader_CapstoneProject.UI
         HTTRANSPARENT 같은 스레드의 다른 윈도우에 가려진 부분 -1
         --------------------------------------------------------------------------------------
         */
+	}
+
+	public class FlatCheckBox : PictureBox
+	{
+		private bool Status_private;
+		public event EventHandler StatusChanged;
+		public bool Status
+		{
+			set
+			{
+				Status_private = value;
+
+				this.Image = value ? Properties.Resources.FLATCHECKBOX_ON : Properties.Resources.FLATCHECKBOX_OFF;
+				this.Refresh( );
+
+				StatusChanged?.Invoke( this, EventArgs.Empty );
+			}
+			get
+			{
+				return Status_private;
+			}
+		}
+
+		public FlatCheckBox( )
+		{
+			this.Size = new Size( 30, 30 );
+			this.Status = false;
+			this.SizeMode = PictureBoxSizeMode.StretchImage;
+			this.BackColor = Color.Transparent;
+			this.Cursor = Cursors.Hand;
+
+			this.Image = Properties.Resources.FLATCHECKBOX_OFF;
+		}
+
+		protected override void OnClick( EventArgs e )
+		{
+			base.OnClick( e );
+			this.Status = !this.Status;
+		}
 	}
 }
