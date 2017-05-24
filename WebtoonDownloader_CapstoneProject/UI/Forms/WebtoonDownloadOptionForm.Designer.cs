@@ -49,6 +49,7 @@
 			this.APP_TITLE_BAR = new WebtoonDownloader_CapstoneProject.UI.APP_TITLE_BAR();
 			this.DOWNLOAD_BUTTON = new WebtoonDownloader_CapstoneProject.UI.FlatButton();
 			this.QUALITY_OPTION_PANEL = new System.Windows.Forms.Panel();
+			this.WARN_TOOLOW_LABEL = new System.Windows.Forms.Label();
 			this.QUALITY_EXAMPLE_NOT_AVAILABLE = new System.Windows.Forms.Label();
 			this.RANDOM_IMAGE_BUTTON = new System.Windows.Forms.PictureBox();
 			this.QUALITY_EXAMPLE_TITLE = new System.Windows.Forms.Label();
@@ -56,12 +57,13 @@
 			this.QUALITY_EXAMPLE_IMAGE = new System.Windows.Forms.PictureBox();
 			this.QUALITY_VALUE_HINT = new System.Windows.Forms.Label();
 			this.QUALITY_VALUE_BAR = new System.Windows.Forms.TrackBar();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.QUALITY_OPTION_IMAGE = new System.Windows.Forms.PictureBox();
 			this.QUALITY_OPTION_TITLE = new System.Windows.Forms.Label();
 			this.CREATE_VIEWER_CHECKBOX = new WebtoonDownloader_CapstoneProject.UI.FlatCheckBox();
 			this.BGM_DOWNLOAD_CHECKBOX = new WebtoonDownloader_CapstoneProject.UI.FlatCheckBox();
 			this.TOOL_TIP = new System.Windows.Forms.ToolTip(this.components);
-			this.WARN_TOOLOW_LABEL = new System.Windows.Forms.Label();
+			this.DOWNLOAD_SECTION_SETED_LABEL = new System.Windows.Forms.Label();
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON = new WebtoonDownloader_CapstoneProject.UI.FlatButton();
 			this.DOWNLOAD_OPTION_PANEL.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DOWNLOAD_READY_IMAGE)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.END_THUMBNAIL_IMAGE)).BeginInit();
@@ -72,7 +74,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.RANDOM_IMAGE_BUTTON)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.QUALITY_EXAMPLE_IMAGE)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.QUALITY_VALUE_BAR)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.QUALITY_OPTION_IMAGE)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.CREATE_VIEWER_CHECKBOX)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.BGM_DOWNLOAD_CHECKBOX)).BeginInit();
 			this.SuspendLayout();
@@ -80,6 +82,8 @@
 			// DOWNLOAD_OPTION_PANEL
 			// 
 			this.DOWNLOAD_OPTION_PANEL.AutoScroll = true;
+			this.DOWNLOAD_OPTION_PANEL.Controls.Add(this.DOWNLOAD_SECTION_DETAIL_BUTTON);
+			this.DOWNLOAD_OPTION_PANEL.Controls.Add(this.DOWNLOAD_SECTION_SETED_LABEL);
 			this.DOWNLOAD_OPTION_PANEL.Controls.Add(this.DOWNLOAD_READY_IMAGE);
 			this.DOWNLOAD_OPTION_PANEL.Controls.Add(this.LEFT_LABEL);
 			this.DOWNLOAD_OPTION_PANEL.Controls.Add(this.END_TITLE_LABEL);
@@ -344,7 +348,7 @@
 			this.QUALITY_OPTION_PANEL.Controls.Add(this.QUALITY_EXAMPLE_IMAGE);
 			this.QUALITY_OPTION_PANEL.Controls.Add(this.QUALITY_VALUE_HINT);
 			this.QUALITY_OPTION_PANEL.Controls.Add(this.QUALITY_VALUE_BAR);
-			this.QUALITY_OPTION_PANEL.Controls.Add(this.pictureBox1);
+			this.QUALITY_OPTION_PANEL.Controls.Add(this.QUALITY_OPTION_IMAGE);
 			this.QUALITY_OPTION_PANEL.Controls.Add(this.QUALITY_OPTION_TITLE);
 			this.QUALITY_OPTION_PANEL.Location = new System.Drawing.Point(12, 394);
 			this.QUALITY_OPTION_PANEL.Name = "QUALITY_OPTION_PANEL";
@@ -352,6 +356,17 @@
 			this.QUALITY_OPTION_PANEL.TabIndex = 20;
 			this.QUALITY_OPTION_PANEL.Visible = false;
 			this.QUALITY_OPTION_PANEL.Paint += new System.Windows.Forms.PaintEventHandler(this.QUALITY_OPTION_PANEL_Paint);
+			// 
+			// WARN_TOOLOW_LABEL
+			// 
+			this.WARN_TOOLOW_LABEL.BackColor = System.Drawing.Color.Transparent;
+			this.WARN_TOOLOW_LABEL.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.WARN_TOOLOW_LABEL.ForeColor = System.Drawing.Color.Red;
+			this.WARN_TOOLOW_LABEL.Location = new System.Drawing.Point(16, 154);
+			this.WARN_TOOLOW_LABEL.Name = "WARN_TOOLOW_LABEL";
+			this.WARN_TOOLOW_LABEL.Size = new System.Drawing.Size(295, 22);
+			this.WARN_TOOLOW_LABEL.TabIndex = 28;
+			this.WARN_TOOLOW_LABEL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// QUALITY_EXAMPLE_NOT_AVAILABLE
 			// 
@@ -435,16 +450,16 @@
 			this.QUALITY_VALUE_BAR.Value = 90;
 			this.QUALITY_VALUE_BAR.ValueChanged += new System.EventHandler(this.QUALITY_VALUE_BAR_ValueChanged);
 			// 
-			// pictureBox1
+			// QUALITY_OPTION_IMAGE
 			// 
-			this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-			this.pictureBox1.Image = global::WebtoonDownloader_CapstoneProject.Properties.Resources.HD;
-			this.pictureBox1.Location = new System.Drawing.Point(4, 2);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(40, 40);
-			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-			this.pictureBox1.TabIndex = 20;
-			this.pictureBox1.TabStop = false;
+			this.QUALITY_OPTION_IMAGE.BackColor = System.Drawing.Color.Transparent;
+			this.QUALITY_OPTION_IMAGE.Image = global::WebtoonDownloader_CapstoneProject.Properties.Resources.HD;
+			this.QUALITY_OPTION_IMAGE.Location = new System.Drawing.Point(4, 2);
+			this.QUALITY_OPTION_IMAGE.Name = "QUALITY_OPTION_IMAGE";
+			this.QUALITY_OPTION_IMAGE.Size = new System.Drawing.Size(40, 40);
+			this.QUALITY_OPTION_IMAGE.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.QUALITY_OPTION_IMAGE.TabIndex = 20;
+			this.QUALITY_OPTION_IMAGE.TabStop = false;
 			// 
 			// QUALITY_OPTION_TITLE
 			// 
@@ -488,16 +503,40 @@
 			this.BGM_DOWNLOAD_CHECKBOX.TabStop = false;
 			this.TOOL_TIP.SetToolTip(this.BGM_DOWNLOAD_CHECKBOX, "웹툰 화에 포함된 BGM(사운드) 파일을 다운로드 합니다.");
 			// 
-			// WARN_TOOLOW_LABEL
+			// DOWNLOAD_SECTION_SETED_LABEL
 			// 
-			this.WARN_TOOLOW_LABEL.BackColor = System.Drawing.Color.Transparent;
-			this.WARN_TOOLOW_LABEL.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.WARN_TOOLOW_LABEL.ForeColor = System.Drawing.Color.Red;
-			this.WARN_TOOLOW_LABEL.Location = new System.Drawing.Point(16, 154);
-			this.WARN_TOOLOW_LABEL.Name = "WARN_TOOLOW_LABEL";
-			this.WARN_TOOLOW_LABEL.Size = new System.Drawing.Size(295, 22);
-			this.WARN_TOOLOW_LABEL.TabIndex = 28;
-			this.WARN_TOOLOW_LABEL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.DOWNLOAD_SECTION_SETED_LABEL.AutoSize = true;
+			this.DOWNLOAD_SECTION_SETED_LABEL.BackColor = System.Drawing.Color.Transparent;
+			this.DOWNLOAD_SECTION_SETED_LABEL.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.DOWNLOAD_SECTION_SETED_LABEL.Location = new System.Drawing.Point(229, 146);
+			this.DOWNLOAD_SECTION_SETED_LABEL.Name = "DOWNLOAD_SECTION_SETED_LABEL";
+			this.DOWNLOAD_SECTION_SETED_LABEL.Size = new System.Drawing.Size(243, 15);
+			this.DOWNLOAD_SECTION_SETED_LABEL.TabIndex = 22;
+			this.DOWNLOAD_SECTION_SETED_LABEL.Text = "다운로드 구간 세부 설정이 적용되었습니다.";
+			this.DOWNLOAD_SECTION_SETED_LABEL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.DOWNLOAD_SECTION_SETED_LABEL.Visible = false;
+			// 
+			// DOWNLOAD_SECTION_DETAIL_BUTTON
+			// 
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.AnimationLerpP = 0.8F;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.BackColor = System.Drawing.Color.Transparent;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.ButtonText = "다운로드 구간 세부 설정";
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.ButtonTextColor = System.Drawing.Color.Black;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.EnterStateBackgroundColor = System.Drawing.Color.DarkGray;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Location = new System.Drawing.Point(507, 4);
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Name = "DOWNLOAD_SECTION_DETAIL_BUTTON";
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.NormalStateBackgroundColor = System.Drawing.Color.Gainsboro;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Size = new System.Drawing.Size(166, 40);
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.TabIndex = 23;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.TabStop = false;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Text = "다운로드 구간 세부 설정";
+			this.TOOL_TIP.SetToolTip(this.DOWNLOAD_SECTION_DETAIL_BUTTON, "다운로드 구간을 세부 설정합니다.");
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.UseVisualStyleBackColor = false;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Click += new System.EventHandler(this.DOWNLOAD_SECTION_DETAIL_BUTTON_Click);
 			// 
 			// WebtoonDownloadOptionForm
 			// 
@@ -535,7 +574,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.RANDOM_IMAGE_BUTTON)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.QUALITY_EXAMPLE_IMAGE)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.QUALITY_VALUE_BAR)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.QUALITY_OPTION_IMAGE)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.CREATE_VIEWER_CHECKBOX)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.BGM_DOWNLOAD_CHECKBOX)).EndInit();
 			this.ResumeLayout(false);
@@ -565,7 +604,7 @@
 		private System.Windows.Forms.Label CREATE_VIEWER_LABEL;
 		private System.Windows.Forms.PictureBox DOWNLOAD_READY_IMAGE;
 		private System.Windows.Forms.Panel QUALITY_OPTION_PANEL;
-		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.PictureBox QUALITY_OPTION_IMAGE;
 		private System.Windows.Forms.Label QUALITY_OPTION_TITLE;
 		private System.Windows.Forms.TrackBar QUALITY_VALUE_BAR;
 		private System.Windows.Forms.Label QUALITY_VALUE_HINT;
@@ -576,5 +615,7 @@
 		private System.Windows.Forms.Label QUALITY_EXAMPLE_TITLE;
 		private System.Windows.Forms.ToolTip TOOL_TIP;
 		private System.Windows.Forms.Label WARN_TOOLOW_LABEL;
+		private System.Windows.Forms.Label DOWNLOAD_SECTION_SETED_LABEL;
+		private FlatButton DOWNLOAD_SECTION_DETAIL_BUTTON;
 	}
 }

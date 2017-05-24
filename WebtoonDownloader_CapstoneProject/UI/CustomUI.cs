@@ -129,7 +129,7 @@ namespace WebtoonDownloader_CapstoneProject.UI
 	{
 		public DoubleBufferPanel( )
 		{
-			this.SetStyle( ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true );
+			this.SetStyle( ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw, true );
 			this.UpdateStyles( );
 		}
 	}

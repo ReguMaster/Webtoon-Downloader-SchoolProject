@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using ImageBlurFilter;
 using WebtoonDownloader_CapstoneProject.Core;
 using WebtoonDownloader_CapstoneProject.UI.Forms;
 
@@ -174,7 +175,7 @@ namespace WebtoonDownloader_CapstoneProject
 
 		private void MainForm_Load( object sender, EventArgs e )
 		{
-			( new WelcomeSplashForm( ) ).ShowDialog( );
+			//( new WelcomeSplashForm( ) ).ShowDialog( );
 
 			//try
 			//{
@@ -216,14 +217,18 @@ namespace WebtoonDownloader_CapstoneProject
 
 			this.BACKGROUND_SPLASH.Top = this.Height;
 
-			Animation.NumberSmoothEffect( this.Height, 70, ( float val ) =>
-			{
-				this.BACKGROUND_SPLASH.Top = ( int ) val;
-				this.BACKGROUND_SPLASH.Invalidate( );
-			} );
+			blurImage = blurImage.ImageBlurFilter( ExtBitmap.BlurType.GaussianBlur5x5 );
+
+			//Animation.NumberSmoothEffect( this.Height, 70, ( float val ) =>
+			//{
+			//	this.BACKGROUND_SPLASH.Top = ( int ) val;
+			//	this.BACKGROUND_SPLASH.Invalidate( );
+			//} );
 
 			//NotifyBox.Show( this, "환영합니다", "WELCOME", "웹툰 다운로더에 처음으로 오신 것을 환영합니다!", NotifyBox.NotifyBoxType.TimeNotify, NotifyBox.NotifyBoxIcon.Information, 5 );
 		}
+
+		Bitmap blurImage = new Bitmap( GlobalVar.APPLICATION_DIRECTORY + @"\resources\exampleImages\test\test.jpg" );
 
 		private void MainForm_Paint( object sender, PaintEventArgs e )
 		{
@@ -233,12 +238,17 @@ namespace WebtoonDownloader_CapstoneProject
 			e.Graphics.DrawLine( lineDrawer, 0, 0, 0, h ); // 왼쪽
 			e.Graphics.DrawLine( lineDrawer, w - lineDrawer.Width, 0, w - lineDrawer.Width, h ); // 오른쪽
 			e.Graphics.DrawLine( lineDrawer, 0, h - lineDrawer.Width, w, h - lineDrawer.Width ); // 아래
+
+			
+
+			e.Graphics.DrawImage( blurImage, 0, 0 );
 		}
 
 		private void WEBTOON_SELECT_BUTTON_Click( object sender, EventArgs e )
 		{
 			if ( this.UIModeVar == UIMode.Begin )
 			{
+				
 				WebtoonSelectForm form = new WebtoonSelectForm( );
 				form.FormClosed += ( sender2, e2 ) =>
 				{
@@ -363,6 +373,7 @@ namespace WebtoonDownloader_CapstoneProject
 
 		private bool APP_TITLE_BAR_BeginClose( )
 		{
+#if ( RELEASE )
 			if ( this.UIModeVar == UIMode.Downloading )
 			{
 				if ( NotifyBox.Show( this, "다운로드 취소 후 종료", "Cancel", "정말로 다운로드를 취소하시고 웹툰 다운로더를 종료하시겠습니까?", NotifyBox.NotifyBoxType.YesNo, NotifyBox.NotifyBoxIcon.Warning ) == NotifyBox.NotifyBoxResult.Yes )
@@ -383,6 +394,9 @@ namespace WebtoonDownloader_CapstoneProject
 			}
 
 			return NotifyBox.Show( this, "종료", "Close", "정말로 웹툰 다운로더를 종료하시겠습니까?", NotifyBox.NotifyBoxType.YesNo, NotifyBox.NotifyBoxIcon.Question ) == NotifyBox.NotifyBoxResult.Yes;
+#else
+			return true;
+#endif
 		}
 
 		private void WEBTOON_DESELECT_BUTTON_Click( object sender, EventArgs e )

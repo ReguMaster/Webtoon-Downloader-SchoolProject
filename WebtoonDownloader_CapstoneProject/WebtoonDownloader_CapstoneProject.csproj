@@ -39,6 +39,9 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\..\..\C#\라이브러리\HtmlAgilityPack.1.4.6\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="ImageBlurFilter">
+      <HintPath>..\..\..\C#\라이브러리\ImageBlurFilter.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -64,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Core\Animation.cs" />
     <Compile Include="Core\BrowserViewer.cs" />
+    <Compile Include="Core\Cache.cs" />
     <Compile Include="Core\HttpWebRequestHelper.cs" />
     <Compile Include="Core\NotifyBox.cs" />
     <Compile Include="Core\Util.cs" />
@@ -97,6 +101,24 @@
     <Compile Include="UI\Forms\NotifyBoxForm.Designer.cs">
       <DependentUpon>NotifyBoxForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms\WebtoonDownloadDetailSectionChild.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\WebtoonDownloadDetailSectionChild.Designer.cs">
+      <DependentUpon>WebtoonDownloadDetailSectionChild.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\WebtoonDownloadDetailSectionDotForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\WebtoonDownloadDetailSectionDotForm.Designer.cs">
+      <DependentUpon>WebtoonDownloadDetailSectionDotForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\WebtoonDownloadDetailSectionPageIndexForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\WebtoonDownloadDetailSectionPageIndexForm.Designer.cs">
+      <DependentUpon>WebtoonDownloadDetailSectionPageIndexForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\WebtoonDownloadInformationForMainForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -108,6 +130,12 @@
     </Compile>
     <Compile Include="UI\Forms\WebtoonDownloadInformationForWebtoonSelectForm.Designer.cs">
       <DependentUpon>WebtoonDownloadInformationForWebtoonSelectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\WebtoonDownloadDetailSectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\WebtoonDownloadDetailSectionForm.Designer.cs">
+      <DependentUpon>WebtoonDownloadDetailSectionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\WebtoonDownloadOptionForm.cs">
       <SubType>Form</SubType>
@@ -164,11 +192,23 @@
     <EmbeddedResource Include="UI\Forms\NotifyBoxForm.resx">
       <DependentUpon>NotifyBoxForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\WebtoonDownloadDetailSectionChild.resx">
+      <DependentUpon>WebtoonDownloadDetailSectionChild.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\WebtoonDownloadDetailSectionDotForm.resx">
+      <DependentUpon>WebtoonDownloadDetailSectionDotForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\WebtoonDownloadDetailSectionPageIndexForm.resx">
+      <DependentUpon>WebtoonDownloadDetailSectionPageIndexForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\WebtoonDownloadInformationForMainForm.resx">
       <DependentUpon>WebtoonDownloadInformationForMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\WebtoonDownloadInformationForWebtoonSelectForm.resx">
       <DependentUpon>WebtoonDownloadInformationForWebtoonSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\WebtoonDownloadDetailSectionForm.resx">
+      <DependentUpon>WebtoonDownloadDetailSectionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\WebtoonDownloadOptionForm.resx">
       <DependentUpon>WebtoonDownloadOptionForm.cs</DependentUpon>
@@ -238,6 +278,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="APP_ICON_v2.ico" />
+    <None Include="Resources\TEST_BLUR.png" />
+    <None Include="Resources\SECTION_END_DOT.png" />
+    <None Include="Resources\SECTION_START_DOT.png" />
+    <None Include="Resources\PREVIOUS_PAGE.png" />
+    <None Include="Resources\NEXT_PAGE.png" />
+    <None Include="Resources\HINT.png" />
     <None Include="Resources\DOWN.png" />
     <None Include="Resources\HD.png" />
     <None Include="Resources\RANDOM.png" />

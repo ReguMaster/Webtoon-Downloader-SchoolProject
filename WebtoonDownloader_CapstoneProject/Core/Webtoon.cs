@@ -522,55 +522,112 @@ namespace WebtoonDownloader_CapstoneProject.Core
 
 					try
 					{
-						foreach ( WebtoonListSpecificPageInformations i in info.specificPageInformations )
+						if ( GlobalVar.DownloadSections == null )
 						{
-							if ( i.num >= GlobalVar.BeginDownloadDetailNum && i.num <= GlobalVar.EndDownloadDetailNum )
+							foreach ( WebtoonListSpecificPageInformations i in info.specificPageInformations )
 							{
-								string path = baseDir + "\\" + ( i.num + " - " + Util.StripFolderName( i.title ) );
-
-								DownloadPageChanged.Invoke( i );
-								MessageChangeCallBack.Invoke( i.num + "화 다운로드 중 ..." );
-
-								Directory.CreateDirectory( path );
-								Directory.CreateDirectory( path + "\\데이터" );
-
-								if ( !DownloadImageResourceCompress( i.thumbnail, path + @"\데이터\thumanail.jpg" ) )
+								if ( i.num >= GlobalVar.BeginDownloadDetailNum && i.num <= GlobalVar.EndDownloadDetailNum )
 								{
-									ErrorHandler.Invoke( "썸네일 이미지를 다운로드 하지 못했습니다." );
-								}
-								//if ( !DownloadResource( i.thumbnail, path + @"\데이터\thumanail.jpg" ) )
-								//{
-								//	ErrorHandler.Invoke( "썸네일 이미지를 다운로드 하지 못했습니다." );
-								//}
+									string path = baseDir + "\\" + ( i.num + " - " + Util.StripFolderName( i.title ) );
 
-								if ( GlobalVar.BGMDownloadOption && !string.IsNullOrEmpty( i.bgm ) )
+									DownloadPageChanged.Invoke( i );
+									MessageChangeCallBack.Invoke( i.num + "화 다운로드 중 ..." );
+
+									Directory.CreateDirectory( path );
+									Directory.CreateDirectory( path + "\\데이터" );
+
+									if ( !DownloadImageResourceCompress( i.thumbnail, path + @"\데이터\thumanail.jpg" ) )
+									{
+										ErrorHandler.Invoke( "썸네일 이미지를 다운로드 하지 못했습니다." );
+									}
+									//if ( !DownloadResource( i.thumbnail, path + @"\데이터\thumanail.jpg" ) )
+									//{
+									//	ErrorHandler.Invoke( "썸네일 이미지를 다운로드 하지 못했습니다." );
+									//}
+
+									if ( GlobalVar.BGMDownloadOption && !string.IsNullOrEmpty( i.bgm ) )
+									{
+										if ( !DownloadResource( i.bgm, path + @"\데이터\bgm.mp3" ) )
+											ErrorHandler.Invoke( "BGM 데이터를 다운로드 하지 못했습니다." );
+									}
+
+									//WebtoonDetailPageInformations detail = GetDetailPageInformations( i.url );
+									//specificPageData.contents = detail.contents;
+
+									int count = 0;
+									foreach ( string i2 in i.contents )
+									{
+										if ( !DownloadImageResourceCompress( i2, path + @"\데이터\" + ++count + "_image.jpg" ) )
+											ErrorHandler.Invoke( "이미지 데이터를 다운로드 하지 못했습니다." );
+
+										DownloadProgressChanged.Invoke( 0, ( float ) ++currentDownloadImageCount / ( float ) totalDownloadImageCount ); //( ( float ) count / ( float ) i.contents.Count ),
+										Util.AppliactionDelay( 10 );
+									}
+
+									if ( GlobalVar.ViewerCreateOption )
+										BrowserViewer.Create(
+											info.title + " - " + i.title,
+											path,
+											i.url,
+											count,
+											!string.IsNullOrEmpty( i.bgm ),
+											null
+										);
+								}
+							}
+						}
+						else
+						{
+							foreach ( WebtoonListSpecificPageInformations i in info.specificPageInformations )
+							{
+								if ( GlobalVar.DownloadSections.IndexOf( i.num ) > -1 )
 								{
-									if ( !DownloadResource( i.bgm, path + @"\데이터\bgm.mp3" ) )
-										ErrorHandler.Invoke( "BGM 데이터를 다운로드 하지 못했습니다." );
+									string path = baseDir + "\\" + ( i.num + " - " + Util.StripFolderName( i.title ) );
+
+									DownloadPageChanged.Invoke( i );
+									MessageChangeCallBack.Invoke( i.num + "화 다운로드 중 ..." );
+
+									Directory.CreateDirectory( path );
+									Directory.CreateDirectory( path + "\\데이터" );
+
+									if ( !DownloadImageResourceCompress( i.thumbnail, path + @"\데이터\thumanail.jpg" ) )
+									{
+										ErrorHandler.Invoke( "썸네일 이미지를 다운로드 하지 못했습니다." );
+									}
+									//if ( !DownloadResource( i.thumbnail, path + @"\데이터\thumanail.jpg" ) )
+									//{
+									//	ErrorHandler.Invoke( "썸네일 이미지를 다운로드 하지 못했습니다." );
+									//}
+
+									if ( GlobalVar.BGMDownloadOption && !string.IsNullOrEmpty( i.bgm ) )
+									{
+										if ( !DownloadResource( i.bgm, path + @"\데이터\bgm.mp3" ) )
+											ErrorHandler.Invoke( "BGM 데이터를 다운로드 하지 못했습니다." );
+									}
+
+									//WebtoonDetailPageInformations detail = GetDetailPageInformations( i.url );
+									//specificPageData.contents = detail.contents;
+
+									int count = 0;
+									foreach ( string i2 in i.contents )
+									{
+										if ( !DownloadImageResourceCompress( i2, path + @"\데이터\" + ++count + "_image.jpg" ) )
+											ErrorHandler.Invoke( "이미지 데이터를 다운로드 하지 못했습니다." );
+
+										DownloadProgressChanged.Invoke( 0, ( float ) ++currentDownloadImageCount / ( float ) totalDownloadImageCount ); //( ( float ) count / ( float ) i.contents.Count ),
+										Util.AppliactionDelay( 10 );
+									}
+
+									if ( GlobalVar.ViewerCreateOption )
+										BrowserViewer.Create(
+											info.title + " - " + i.title,
+											path,
+											i.url,
+											count,
+											!string.IsNullOrEmpty( i.bgm ),
+											null
+										);
 								}
-
-								//WebtoonDetailPageInformations detail = GetDetailPageInformations( i.url );
-								//specificPageData.contents = detail.contents;
-
-								int count = 0;
-								foreach ( string i2 in i.contents )
-								{
-									if ( !DownloadImageResourceCompress( i2, path + @"\데이터\" + ++count + "_image.jpg" ) )
-										ErrorHandler.Invoke( "이미지 데이터를 다운로드 하지 못했습니다." );
-
-									DownloadProgressChanged.Invoke( 0, ( float ) ++currentDownloadImageCount / ( float ) totalDownloadImageCount ); //( ( float ) count / ( float ) i.contents.Count ),
-									Util.AppliactionDelay( 10 );
-								}
-
-								if ( GlobalVar.ViewerCreateOption )
-									BrowserViewer.Create(
-										info.title + " - " + i.title,
-										path,
-										i.url,
-										count,
-										!string.IsNullOrEmpty( i.bgm ),
-										null
-									);
 							}
 						}
 					}

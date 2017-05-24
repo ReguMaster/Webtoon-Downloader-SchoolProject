@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -17,6 +18,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 		public bool ForceClosed; // 닫기 버튼을 강제로 눌렀는지 확인
 		private int randomImageCount;
 		private string[ ] exampleImages;
+		private List<WebtoonSectionDotRelationShip> dotRelationshipCached; // WebtoonDownloadDetailSectionForm을 다시 열었을 때 정리되지 않은 데이터를 복구할 용도로 만듬
 
 		public WebtoonDownloadOptionForm( string url )
 		{
@@ -144,6 +146,8 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 						this.BEGIN_TITLE_LABEL.Text = info.title;
 					} );
 
+					//await Task.Delay( 1000 );
+
 					CallGetSpecificWebtoonDetailPageInformations( maxWebtoonList, ( NaverWebtoon.WebtoonDetailPageInformations info ) =>
 					{
 						this.END_THUMBNAIL_IMAGE.Load( info.thumbnail );
@@ -216,6 +220,11 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 		private void DOWNLOAD_BUTTON_Click( object sender, EventArgs e )
 		{
+			if ( GlobalVar.DownloadSections != null && GlobalVar.DownloadSections.Count == 0 )
+			{
+				NotifyBox.Show( this, "오류", "Error", "다운로드 구간 설정에 의해 다운로드 할 화가 없습니다.", NotifyBox.NotifyBoxType.OK, NotifyBox.NotifyBoxIcon.Warning );
+				return;
+			}
 			// 다운로드 옵션 설정
 
 			GlobalVar.BeginDownloadDetailNum = ( int ) this.WEBTOON_BEGIN_NUMBER.Value;
@@ -259,6 +268,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 		private bool APP_TITLE_BAR_BeginClose( )
 		{
+#if ( RELEASE )
 			if ( NotifyBox.Show( this, "다운로드 취소", "Cancel", "정말로 다운로드를 취소하시겠습니까?", NotifyBox.NotifyBoxType.YesNo, NotifyBox.NotifyBoxIcon.Warning ) == NotifyBox.NotifyBoxResult.Yes )
 			{
 				this.ForceClosed = true;
@@ -266,6 +276,11 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			}
 
 			return false;
+#else
+			this.ForceClosed = true;
+
+			return true;
+#endif
 		}
 
 		private void QUALITY_VALUE_BAR_ValueChanged( object sender, EventArgs e )
@@ -367,6 +382,57 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			e.Graphics.DrawLine( lineDrawer, 0, 0, 0, h ); // 왼쪽
 			e.Graphics.DrawLine( lineDrawer, w - lineDrawer.Width, 0, w - lineDrawer.Width, h ); // 오른쪽
 			e.Graphics.DrawLine( lineDrawer, 0, h - lineDrawer.Width, w, h - lineDrawer.Width ); // 아래
+		}
+
+		private void DOWNLOAD_SECTION_DETAIL_BUTTON_Click( object sender, EventArgs e )
+		{
+			WebtoonDownloadDetailSectionForm form = new WebtoonDownloadDetailSectionForm( this.url );
+
+			if ( this.dotRelationshipCached != null && GlobalVar.DownloadSections != null )
+				form.SetDotRelationship( this.dotRelationshipCached, GlobalVar.DownloadSections );
+
+			form.FormClosing += ( object sender2, FormClosingEventArgs e2 ) =>
+			{
+				Tuple<List<WebtoonSectionDotRelationShip>, List<int>> relationshipData = form.GetDotRelationship( );
+
+				this.dotRelationshipCached = relationshipData.Item1;
+				GlobalVar.DownloadSections = relationshipData.Item2;
+
+				if ( GlobalVar.DownloadSections.Count > 0 )
+				{
+					this.BEGIN_THUMBNAIL_IMAGE.Visible = false;
+					this.END_THUMBNAIL_IMAGE.Visible = false;
+					this.BEGIN_TITLE_LABEL.Visible = false;
+					this.END_TITLE_LABEL.Visible = false;
+					this.LEFT_LABEL.Visible = false;
+					this.CENTER_LABEL.Visible = false;
+					this.RIGHT_LABEL.Visible = false;
+
+					this.WEBTOON_BEGIN_NUMBER.Visible = false;
+					this.WEBTOON_END_NUMBER.Visible = false;
+
+					this.DOWNLOAD_SECTION_SETED_LABEL.Visible = true;
+				}
+				else
+				{
+					GlobalVar.DownloadSections = null;
+
+					this.BEGIN_THUMBNAIL_IMAGE.Visible = true;
+					this.END_THUMBNAIL_IMAGE.Visible = true;
+					this.BEGIN_TITLE_LABEL.Visible = true;
+					this.END_TITLE_LABEL.Visible = true;
+					this.LEFT_LABEL.Visible = true;
+					this.CENTER_LABEL.Visible = true;
+					this.RIGHT_LABEL.Visible = true;
+
+					this.WEBTOON_BEGIN_NUMBER.Visible = true;
+					this.WEBTOON_END_NUMBER.Visible = true;
+
+					this.DOWNLOAD_SECTION_SETED_LABEL.Visible = false;
+				}
+			};
+
+			form.ShowDialog( );
 		}
 	}
 }

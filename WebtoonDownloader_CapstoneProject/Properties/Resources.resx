@@ -190,4 +190,22 @@
   <data name="RANDOM" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RANDOM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="HINT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HINT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NEXT_PAGE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NEXT_PAGE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PREVIOUS_PAGE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PREVIOUS_PAGE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SECTION_END_DOT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SECTION_END_DOT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SECTION_START_DOT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SECTION_START_DOT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TEST_BLUR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TEST_BLUR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

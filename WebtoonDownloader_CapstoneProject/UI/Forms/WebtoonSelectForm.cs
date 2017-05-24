@@ -136,6 +136,12 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 			this.Opacity = 0;
 			this.UIModeVar = UIMode.NotSelected;
+
+
+#if (DEBUG)
+			// TEST 용
+			this.DATA_TEXTBOX.Text = "http://comic.naver.com/webtoon/list.nhn?titleId=570503&weekday=thu";
+#endif
 		}
 
 		private void WebtoonSelectForm_Load( object sender, EventArgs e )
