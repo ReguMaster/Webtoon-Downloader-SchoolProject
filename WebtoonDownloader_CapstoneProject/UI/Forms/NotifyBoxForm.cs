@@ -4,19 +4,18 @@ using System.Media;
 using System.Threading;
 using System.Windows.Forms;
 using WebtoonDownloader_CapstoneProject.Core;
-using static WebtoonDownloader_CapstoneProject.Core.NotifyBox;
 
 namespace WebtoonDownloader_CapstoneProject.UI.Forms
 {
 	public partial class NotifyBoxForm : Form
 	{
 		private Pen lineDrawer = new Pen( GlobalVar.ThemeColor );
-		public NotifyBoxResult Result
+		public NotifyBox.NotifyBoxResult Result
 		{
 			get; set;
 		}
 
-		public NotifyBoxForm( string title, string titleEng, string message, NotifyBoxType type, NotifyBoxIcon icon, int time )
+		public NotifyBoxForm( string title, string titleEng, string message, NotifyBox.NotifyBoxType type, NotifyBox.NotifyBoxIcon icon, int time )
 		{
 			InitializeComponent( );
 
@@ -26,28 +25,27 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 			switch ( icon )
 			{
-				case NotifyBoxIcon.Information:
+				case NotifyBox.NotifyBoxIcon.Information:
 					SystemSounds.Asterisk.Play( );
 					this.APP_TITLE_BAR.TextColor = Color.White;
 					this.APP_TITLE_BAR.BackColor = Color.Gray;
 					break;
-				case NotifyBoxIcon.Question:
+				case NotifyBox.NotifyBoxIcon.Question:
 					SystemSounds.Asterisk.Play( );
 					this.APP_TITLE_BAR.TextColor = Color.White;
 					this.APP_TITLE_BAR.BackColor = Color.DodgerBlue;
 					break;
-				case NotifyBoxIcon.Error:
+				case NotifyBox.NotifyBoxIcon.Error:
 					SystemSounds.Hand.Play( );
 					this.APP_TITLE_BAR.TextColor = Color.White;
 					this.APP_TITLE_BAR.BackColor = Color.FromArgb( 255, 255, 100, 100 );
 					break;
-				case NotifyBoxIcon.Danger:
+				case NotifyBox.NotifyBoxIcon.Danger:
 					SystemSounds.Hand.Play( );
 					this.APP_TITLE_BAR.TextColor = Color.White;
 					this.APP_TITLE_BAR.BackColor = Color.Crimson;
 					break;
-				case NotifyBoxIcon.Warning:
-
+				case NotifyBox.NotifyBoxIcon.Warning:
 					break;
 			}
 
@@ -57,33 +55,33 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 			switch ( type )
 			{
-				case NotifyBoxType.OK:
+				case NotifyBox.NotifyBoxType.OK:
 					this.OK_BUTTON.Visible = true;
 					this.YES_BUTTON.Visible = false;
 					this.NO_BUTTON.Visible = false;
 
 					this.FormClosing += delegate ( object sender, FormClosingEventArgs e )
 					{
-						if ( Result != NotifyBoxResult.OK )
+						if ( Result != NotifyBox.NotifyBoxResult.OK )
 						{
-							Result = NotifyBoxResult.OK;
+							Result = NotifyBox.NotifyBoxResult.OK;
 						}
 					};
 					break;
-				case NotifyBoxType.YesNo:
+				case NotifyBox.NotifyBoxType.YesNo:
 					this.OK_BUTTON.Visible = false;
 					this.YES_BUTTON.Visible = true;
 					this.NO_BUTTON.Visible = true;
 
 					this.FormClosing += delegate ( object sender, FormClosingEventArgs e )
 					{
-						if ( Result != NotifyBoxResult.Yes && Result != NotifyBoxResult.No )
+						if ( Result != NotifyBox.NotifyBoxResult.Yes && Result != NotifyBox.NotifyBoxResult.No )
 						{
-							Result = NotifyBoxResult.No;
+							Result = NotifyBox.NotifyBoxResult.No;
 						}
 					};
 					break;
-				case NotifyBoxType.TimeNotify:
+				case NotifyBox.NotifyBoxType.TimeNotify:
 					this.OK_BUTTON.Visible = true;
 					this.OK_BUTTON.Enabled = false;
 					this.OK_BUTTON.Text = time + "초 후 닫힘";
@@ -96,7 +94,6 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 					};
 					timer.Tick += ( object sender, EventArgs e ) =>
 					{
-						//time--;
 						this.OK_BUTTON.Text = ( --time > 0 ? time : 0 ) + "초 후 닫힘";
 
 						if ( time <= 0 )
@@ -108,7 +105,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 					this.FormClosing += delegate ( object sender, FormClosingEventArgs e )
 					{
-						Result = NotifyBoxResult.Null;
+						Result = NotifyBox.NotifyBoxResult.Null;
 					};
 					break;
 			}
@@ -146,19 +143,19 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 		private void YES_BUTTON_Click( object sender, EventArgs e )
 		{
-			this.Result = NotifyBoxResult.Yes;
+			this.Result = NotifyBox.NotifyBoxResult.Yes;
 			Animation.UI.FadeOut( this, true );
 		}
 
 		private void NO_BUTTON_Click( object sender, EventArgs e )
 		{
-			this.Result = NotifyBoxResult.No;
+			this.Result = NotifyBox.NotifyBoxResult.No;
 			Animation.UI.FadeOut( this, true );
 		}
 
 		private void OK_BUTTON_Click( object sender, EventArgs e )
 		{
-			this.Result = NotifyBoxResult.OK;
+			this.Result = NotifyBox.NotifyBoxResult.OK;
 			Animation.UI.FadeOut( this, true );
 		}
 

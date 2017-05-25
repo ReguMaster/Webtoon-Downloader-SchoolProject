@@ -9,70 +9,56 @@ namespace WebtoonDownloader_CapstoneProject.Core
 		{
 			public static void FadeIn( Form form )
 			{
-				form.Opacity = 1;
-				form.Invalidate( );
-				//Animation.NumberSmoothEffect( 0, 10, ( float alpha ) =>
-				//{
-				//	if ( form == null || form.IsDisposed || form.Disposing ) return;
+				Animation.NumberSmoothEffect( 0, 10, ( float alpha ) =>
+				{
+					if ( form == null || form.IsDisposed || form.Disposing ) return;
 
-				//	form.Opacity = alpha / 10;
-				//	form.Invalidate( );
-				//}, ( float alpha ) =>
-				//{
-				//	if ( form == null || form.IsDisposed || form.Disposing ) return;
+					form.Opacity = alpha / 10;
+					form.Invalidate( );
+				}, ( float alpha ) =>
+				{
+					if ( form == null || form.IsDisposed || form.Disposing ) return;
 
-				//	form.Opacity = 1;
-				//	form.Invalidate( );
-				//}  );
+					form.Opacity = 1;
+					form.Invalidate( );
+				} );
 			}
 
 			public static void FadeOut( Form form, bool closeAfterFadeOut )
 			{
-				form.Opacity = 0;
-				form.Invalidate( );
-
-				if ( closeAfterFadeOut )
+				Animation.NumberSmoothEffect( 10, 0, ( float alpha ) =>
 				{
-					form.Close( );
-				}
+					if ( form == null || form.IsDisposed || form.Disposing ) return;
 
-				//Animation.NumberSmoothEffect( 10, 0, ( float alpha ) =>
-				//{
-				//	if ( form == null || form.IsDisposed || form.Disposing ) return;
-
-				//	form.Opacity = alpha / 10;
-				//	form.Invalidate( );
+					form.Opacity = alpha / 10;
+					form.Invalidate( );
 
 
-				//}, ( float alpha ) =>
-				//{
-				//	if ( form == null || form.IsDisposed || form.Disposing ) return;
+				}, ( float alpha ) =>
+				{
+					if ( form == null || form.IsDisposed || form.Disposing ) return;
 
-				//	if ( closeAfterFadeOut && ( int ) alpha == 0 )
-				//	{
-				//		form.Close( );
-				//	}
-				//} );
+					if ( closeAfterFadeOut && ( int ) alpha == 0 )
+					{
+						form.Close( );
+					}
+				} );
 			}
 
 			public static void FadeOutShutdown( Form form )
 			{
-				form.Opacity = 0;
-				form.Invalidate( );
-				Application.Exit( );
+				Animation.NumberSmoothEffect( 100, 0, ( float alpha ) =>
+				{
+					if ( form == null || form.IsDisposed || form.Disposing ) return;
 
-				//Animation.NumberSmoothEffect( 100, 0, ( float alpha ) =>
-				//{
-				//	if ( form == null || form.IsDisposed || form.Disposing ) return;
+					form.Opacity = alpha / 100;
+					form.Invalidate( );
 
-				//	form.Opacity = alpha / 100;
-				//	form.Invalidate( );
-
-				//	if ( ( int ) alpha == 0 )
-				//	{
-				//		Application.Exit( );
-				//	}
-				//} );
+					if ( ( int ) alpha == 0 )
+					{
+						Application.Exit( );
+					}
+				} );
 			}
 		}
 

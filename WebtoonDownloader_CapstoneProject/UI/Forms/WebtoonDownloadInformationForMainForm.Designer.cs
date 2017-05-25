@@ -108,7 +108,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.Transparent;
+			this.BackColor = System.Drawing.Color.White;
 			this.Controls.Add(this.UPLOAD_DATE_IMAGE);
 			this.Controls.Add(this.WEBTOON_DETAIL_STAR_RATE_LABEL);
 			this.Controls.Add(this.STAR_RATE_IMAGE);
@@ -117,7 +117,6 @@
 			this.Controls.Add(this.THUMBNAIL_IMAGE);
 			this.Name = "WebtoonDownloadInformationForMainForm";
 			this.Size = new System.Drawing.Size(650, 125);
-			this.Paint += new System.Windows.Forms.PaintEventHandler(this.WebtoonDownloadInformationForMainForm_Paint);
 			((System.ComponentModel.ISupportInitialize)(this.UPLOAD_DATE_IMAGE)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.STAR_RATE_IMAGE)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.THUMBNAIL_IMAGE)).EndInit();

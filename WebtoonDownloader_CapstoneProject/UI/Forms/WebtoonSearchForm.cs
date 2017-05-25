@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebtoonDownloader_CapstoneProject.Core;
@@ -141,7 +140,6 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			if ( metaData[ 0 ] )
 			{
 				NotifyBox.Show( this, "스토어 웹툰", "Store Webtoon", "스토어에 등록된 웹툰은 전체 다운로드가 되지 않을 수 있습니다.", NotifyBox.NotifyBoxType.OK, NotifyBox.NotifyBoxIcon.Warning );
-				//return;
 			}
 
 			this.urlSelected = url;
@@ -162,6 +160,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			this.SEARCH_LOADING_LABEL.Text = "'" + name + "'을 포함하는 웹툰을 검색하고 있습니다 ...";
 
 			SetUIStatus( false );
+
 			this.NO_RESULT_ICON.Visible = false;
 			this.NO_RESULT_TITLE.Visible = false;
 			this.NO_RESULT_DESC.Visible = false;
@@ -173,7 +172,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 				{
 					List<NaverWebtoon.WebtoonSearchResultList> result = NaverWebtoon.SearchWebtoonByTitle( name );
 
-					await Task.Delay( 2000 );
+					await Task.Delay( 1000 );
 
 					int y = 0;
 
@@ -191,16 +190,9 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 							y += panel.Height + 5;
 
 							if ( this.InvokeRequired )
-							{
-								this.Invoke( new Action( ( ) =>
-								{
-									this.SEARCH_RESULT_LIST.Controls.Add( panel );
-								} ) );
-							}
+								this.Invoke( new Action( ( ) => this.SEARCH_RESULT_LIST.Controls.Add( panel ) ) );
 							else
-							{
 								this.SEARCH_RESULT_LIST.Controls.Add( panel );
-							}
 						}
 
 						if ( this.InvokeRequired )
@@ -264,7 +256,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			if ( e.KeyChar == ( char ) Keys.Enter )
 			{
 				this.SEARCH_BUTTON_Click( null, EventArgs.Empty );
-				e.Handled = true;
+				e.Handled = true; // 엔터 칠때 띵 소리가 나지 않게 함
 			}
 		}
 	}

@@ -118,7 +118,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.Transparent;
+			this.BackColor = System.Drawing.Color.White;
 			this.Controls.Add(this.WEBTOON_LIST_AUTHOR_IMAGE);
 			this.Controls.Add(this.WEBTOON_LIST_SHOW_BUTTON);
 			this.Controls.Add(this.WEBTOON_LIST_AUTHOR_LABEL);
@@ -127,7 +127,6 @@
 			this.Controls.Add(this.THUMBNAIL_IMAGE);
 			this.Name = "WebtoonDownloadInformationForWebtoonSelectForm";
 			this.Size = new System.Drawing.Size(650, 210);
-			this.Load += new System.EventHandler(this.WebtoonDownloadInformationForWebtoonSelectForm_Load);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.WebtoonDownloadInformationForWebtoonSelectForm_Paint);
 			((System.ComponentModel.ISupportInitialize)(this.THUMBNAIL_IMAGE)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.WEBTOON_LIST_AUTHOR_IMAGE)).EndInit();

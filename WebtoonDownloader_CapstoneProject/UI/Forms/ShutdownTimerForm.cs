@@ -7,7 +7,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 {
 	public partial class ShutdownTimerForm : Form
 	{
-		int countDown = GlobalVar.DefaultCountDown;
+		int countDown = GlobalVar.DefaultSystemShutDownCountDown;
 
 		public ShutdownTimerForm( )
 		{

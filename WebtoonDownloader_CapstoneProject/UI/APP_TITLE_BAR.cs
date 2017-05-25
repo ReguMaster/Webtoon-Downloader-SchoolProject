@@ -9,7 +9,6 @@ namespace WebtoonDownloader_CapstoneProject.UI
 	{
 		private Point startPoint;
 		private new Form ParentForm;
-
 		private string KoreanText_private;
 		public string KoreanText
 		{
@@ -102,8 +101,8 @@ namespace WebtoonDownloader_CapstoneProject.UI
 		{
 			InitializeComponent( );
 
-			this.SetStyle( ControlStyles.OptimizedDoubleBuffer, true );
-			this.SetStyle( ControlStyles.ResizeRedraw, true );
+			this.SetStyle( ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true );
+			this.UpdateStyles( );
 
 			this.ShowHelp = false;
 		}

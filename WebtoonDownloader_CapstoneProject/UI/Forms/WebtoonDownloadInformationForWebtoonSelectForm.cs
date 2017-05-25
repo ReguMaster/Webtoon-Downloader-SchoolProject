@@ -21,11 +21,6 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			this.UpdateStyles( );
 		}
 
-		private void WebtoonDownloadInformationForWebtoonSelectForm_Load( object sender, EventArgs e )
-		{
-
-		}
-
 		public void SetData( NaverWebtoon.WebtoonListPageInformations data )
 		{
 			if ( this.InvokeRequired )
@@ -40,8 +35,9 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 					{
 						this.THUMBNAIL_IMAGE.Load( data.thumbnail );
 					}
-					catch
+					catch ( Exception ex )
 					{
+						Util.WriteErrorLog( ex );
 						NotifyBox.Show( null, "오류", "Error", "죄송합니다, 해당 웹툰의 썸네일 이미지를 불러올 수 없었습니다.", NotifyBox.NotifyBoxType.OK, NotifyBox.NotifyBoxIcon.Error );
 					}
 
@@ -58,8 +54,9 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 				{
 					this.THUMBNAIL_IMAGE.Load( data.thumbnail );
 				}
-				catch
+				catch ( Exception ex )
 				{
+					Util.WriteErrorLog( ex );
 					NotifyBox.Show( null, "오류", "Error", "죄송합니다, 해당 웹툰의 썸네일 이미지를 불러올 수 없었습니다.", NotifyBox.NotifyBoxType.OK, NotifyBox.NotifyBoxIcon.Error );
 				}
 

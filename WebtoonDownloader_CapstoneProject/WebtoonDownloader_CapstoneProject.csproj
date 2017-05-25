@@ -245,9 +245,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\WELCOME_SPLASH.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Data\WELCOME_SPLASH_TOP.png" />
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +275,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="APP_ICON_v2.ico" />
+    <None Include="Resources\WELCOME_SPLASH.png" />
     <None Include="Resources\TEST_BLUR.png" />
     <None Include="Resources\SECTION_END_DOT.png" />
     <None Include="Resources\SECTION_START_DOT.png" />

@@ -9,7 +9,7 @@ namespace WebtoonDownloader_CapstoneProject
 	{
 		// http://stackoverflow.com/questions/19147/what-is-the-correct-way-to-create-a-single-instance-application
 		private static Mutex mutex = new Mutex( true, "{e5c4a1e2-66ce-44b6-a119-ad2adb863c45}" );
-		
+
 		/// <summary>
 		/// 해당 응용 프로그램의 주 진입점입니다.
 		/// </summary>
@@ -21,9 +21,9 @@ namespace WebtoonDownloader_CapstoneProject
 			Application.EnableVisualStyles( );
 			Application.SetCompatibleTextRenderingDefault( false );
 			Application.Run( new MainForm( ) );
-			mutex.ReleaseMutex();
+			mutex.ReleaseMutex( );
 		}
-		
+
 		public static bool CanRunProgram( )
 		{
 			if ( mutex.WaitOne( TimeSpan.Zero, true ) )

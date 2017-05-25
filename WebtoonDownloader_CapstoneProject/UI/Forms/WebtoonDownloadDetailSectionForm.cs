@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -18,22 +16,24 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 		private Pen lineDrawer = new Pen( GlobalVar.ThemeColor );
 		private string url; // 다운로드 할 웹툰의 list.nhn url
 		private string webtoonID; // 다운로드 할 웹툰의 ID
-		private int childPreviousX = 0;
-		private int currentPage = 1;
-		private int maxWebtoonListPage;
-		private int maxWebtoonCount;
-		private bool isEndDotMode; // start dot 이 생성하고나서 end dot 을 생성해야하는 모드
+		private int childPreviousX = 0; // child 화의 X값 저장용
+		private int currentPage = 1; // 현재 페이지
+		private int maxWebtoonListPage; // 총 페이지
+		private int maxWebtoonCount; // 전체 화의 수
+		private bool isEndDotMode; // start dot 이 생성하고나서 end dot 을 생성해야하는지 감지
 		private List<WebtoonSectionDotRelationShip> dotRelationship = new List<WebtoonSectionDotRelationShip>( ); // 현재 폼에서 사용하는 정리되지 않은 내부 관계
-		private List<int> dotRelationshipExported = new List<int>( ); // 다운로드에 사용될 정리된 관계
-		private Thread pageRequestThread = null; // 리스트를 가져오는 Thread
+		private List<int> dotRelationshipExported = new List<int>( ); // 실제 다운로드에 사용될 정리된 관계
+		private Thread pageRequestThread = null; // 리스트를 가져오는 thread
 
 		// ** 버그 리스트 **
 		// Previous Button & Next Button 을 여러번 누를 시 lock 처리 문제로 인한 중첩 문제 발생 -> 해결
 		// 0 화도 표시되는 문제 -> 해결
 		// 1 화가 건너뛰어지는 문제 -> 해결
 		// 캐시가 필요함 <- 너무 많은 Request 요청 시 네이버 서버에서 block 할 수 있음 -> 해결
+		// DOT 컨트롤을 지울때 다른 컬렉션의 index 차이가 나서 오류가 발생함
 		// end at 17-05-22 am 2:28
 		// 2th end at 17-05-23 pm 3:00
+		// 3th end at 17-05-25 pm 2:00
 
 		public WebtoonDownloadDetailSectionForm( string url )
 		{
@@ -46,14 +46,18 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 			this.url = url;
 
-			Uri uri = new Uri( url );
-
-			System.Collections.Specialized.NameValueCollection query = HttpUtility.ParseQueryString( uri.Query );
-
-			if ( !string.IsNullOrEmpty( query.Get( "titleId" ) ) )
+			try
 			{
-				this.webtoonID = query.Get( "titleId" );
+				Uri uri = new Uri( url );
+
+				System.Collections.Specialized.NameValueCollection query = HttpUtility.ParseQueryString( uri.Query );
+
+				if ( !string.IsNullOrEmpty( query.Get( "titleId" ) ) )
+				{
+					this.webtoonID = query.Get( "titleId" );
+				}
 			}
+			catch { }
 		}
 
 		public void SetDotRelationship( List<WebtoonSectionDotRelationShip> dotRelationship, List<int> dotRelationshipExported )
@@ -209,69 +213,11 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			};
 
 			pageRequestThread.Start( );
-
-			//pageRequestTask = Task.Factory.StartNew( ( ) =>
-			//{
-			//	int maxWebtoonList = NaverWebtoon.GetWebtoonListCount( this.url );
-
-			//	if ( maxWebtoonList > 0 )
-			//	{
-			//		this.maxWebtoonCount = maxWebtoonList;
-
-			//		int i = 1;
-
-			//		int limit = CalcDynamicRequest( );
-
-			//		maxPage = ( int ) ( maxWebtoonList / limit );
-
-			//		if ( this.InvokeRequired )
-			//			this.Invoke( new Action( ( ) => PageIndexInitialize( maxPage ) ) );
-			//		else
-			//			PageIndexInitialize( maxPage );
-
-
-			//		//MessageBox.Show( limit.ToString( ) );
-
-			//		while ( true )
-			//		{
-			//			if ( i >= limit )
-			//				break;
-
-			//			trafficLight.Reset( );
-
-			//			CallGetSpecificWebtoonDetailPageInformations( i, ( NaverWebtoon.WebtoonDetailPageInformations info ) =>
-			//			{
-			//				AddChildPanelFromData( Math.Max( i - 1, 1 ), info );
-			//				trafficLight.Set( );
-			//			} );
-
-			//			i++;
-			//			trafficLight.WaitOne( );
-			//		}
-
-
-
-			//		this.DotAnimationTimer.Stop( );
-
-			//		this.LOADING_LABEL.Visible = false;
-			//		this.SECTION_SET_BUTTON.Visible = true;
-			//		this.POPUP_INFO_PANEL.Visible = true;
-
-
-			//		//int count = 1;
-			//		//foreach ( var info in data )
-			//		//{
-			//		//	AddChildPanelFromData( count++, info );
-			//		//}
-			//	}
-			//} );
 		}
 
 		private void PageIndexClicked( int index )
 		{
 			index++;
-
-			//MessageBox.Show( index + "/" + currentPage + "/" + maxPage );
 
 			currentPage = Util.Clamp( index, maxWebtoonListPage, 1 );
 			PageModify( currentPage );
@@ -368,13 +314,13 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 							if ( page == i.page )
 							{
-								collection[ i.startDotControlIndex ].Visible = true;
-								collection[ i.endDotControlIndex ].Visible = true;
+								i.startDotControl.Visible = true;
+								i.endDotControl.Visible = true;
 							}
 							else
 							{
-								collection[ i.startDotControlIndex ].Visible = false;
-								collection[ i.endDotControlIndex ].Visible = false;
+								i.startDotControl.Visible = false;
+								i.endDotControl.Visible = false;
 							}
 						}
 
@@ -401,15 +347,15 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 			foreach ( WebtoonSectionDotRelationShip i in dotRelationship )
 			{
-				Control.ControlCollection collection = this.DOT_LIST.Controls;
-				collection[ i.startDotControlIndex ].Visible = false;
-				collection[ i.endDotControlIndex ].Visible = false;
+				i.startDotControl.Visible = false;
+				i.endDotControl.Visible = false;
 			}
 		}
 
 		private void InternalRequestPage( int startNum, int endNum, Action callBack = null )
 		{
 			// http://www.hanbit.co.kr/network/category/category_view.html?cms_code=CMS5385068689
+
 			ManualResetEvent trafficLight = new ManualResetEvent( true );
 			List<NaverWebtoon.WebtoonDetailPageInformations> data = new List<NaverWebtoon.WebtoonDetailPageInformations>( );
 
@@ -505,32 +451,26 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 					if ( i.startDotControlIndex == controlIndex )
 					{
 						// 2개의 Dot Control 을 Fade out 한 후 삭제함
-						// 하지만 i.startDotControlIndex 이 1이라고 예시를 들면 위에 코드에서 이미 start Dot 을 지웠으므로
-						// collection 의 controls list 의 index 가 변화가 생긴다
-						// 그 index 는 endDotControlIndex 보다 1이 작음
+						WebtoonDownloadDetailSectionDotForm startDotForm = i.startDotControl;
+						WebtoonDownloadDetailSectionDotForm endDotForm = i.endDotControl;
 
-						WebtoonDownloadDetailSectionDotForm startDotForm = ( WebtoonDownloadDetailSectionDotForm ) collection[ i.startDotControlIndex ];
-						WebtoonDownloadDetailSectionDotForm endDotForm = ( WebtoonDownloadDetailSectionDotForm ) collection[ i.endDotControlIndex ];
 						startDotForm.FadeRemove( ( ) => collection.Remove( startDotForm ) );
 						endDotForm.FadeRemove( ( ) => collection.Remove( endDotForm ) );
 
-						dotRelationship.RemoveAt( index );
+						dotRelationship.Remove( i );
 
 						break;
 					}
 					else if ( i.endDotControlIndex == controlIndex )
 					{
 						// 2개의 Dot Control 을 Fade out 한 후 삭제함
-						// 하지만 i.startDotControlIndex 이 1이라고 예시를 들면 위에 코드에서 이미 start Dot 을 지웠으므로
-						// collection 의 controls list 의 index 가 변화가 생긴다
-						// 그 index 는 endDotControlIndex 보다 1이 작음
+						WebtoonDownloadDetailSectionDotForm startDotForm = i.startDotControl;
+						WebtoonDownloadDetailSectionDotForm endDotForm = i.endDotControl;
 
-						WebtoonDownloadDetailSectionDotForm startDotForm = ( WebtoonDownloadDetailSectionDotForm ) collection[ i.startDotControlIndex ];
-						WebtoonDownloadDetailSectionDotForm endDotForm = ( WebtoonDownloadDetailSectionDotForm ) collection[ i.endDotControlIndex ];
 						startDotForm.FadeRemove( ( ) => collection.Remove( startDotForm ) );
 						endDotForm.FadeRemove( ( ) => collection.Remove( endDotForm ) );
 
-						dotRelationship.RemoveAt( index );
+						dotRelationship.Remove( i );
 
 						break;
 					}
@@ -540,14 +480,11 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			}
 		}
 
-		// Dot 이 겹치지 않는 구간인지 체크
-		// 코드 최적화가 필요함
+		// 입력받은 지점이 겹치는지 아닌지 확인
 		private bool IsAvailableDotCreate( int startNum, int endNum )
 		{
 			if ( this.DOT_LIST.Controls.Count > 1 )
 			{
-				//Control.ControlCollection collection = this.DOT_LIST.Controls;
-
 				foreach ( WebtoonSectionDotRelationShip i in dotRelationship )
 				{
 					if ( i.page != currentPage ) continue; // 현재 페이지가 아닌 Dot 은 참조하지 않음
@@ -555,19 +492,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 					// 충돌이 발견되면 false 을 반환
 					if ( startNum < i.startNum && endNum > i.endNum ) return false;
 					if ( startNum > i.startNum && startNum < i.endNum ) return false;
-					if ( endNum > i.startNum && endNum < i.endNum ) return false;
-
-					//if ( i.startNum == 0 || i.endNum == 0 ) // 아직 시작 지점과 끝 지점이 없음;
-					//	continue;
-					//else if ( i.startNum > 0 && num < i.startNum ) // 시작 지점은 설정되어있음 -> 가능한 구간임 (1 클리어)
-					//	av1 = true;
-					//else if ( i.endNum > 0 && num > i.endNum ) // 끝 지점은 설정되어있음 -> 가능한 구간임 (1 클리어)
-					//	av2 = true;
-					//else if ( i.startNum > 0 && num < i.startNum && i.endNum > 0 && num > i.endNum ) // 시작 지점과 끝 지점이 설정되어있음 -> 이제 가능한 구간인지 확인
-					//	return true; // 겹치지 않는 구간임;
-
-					//if ( av1 && av2 ) return true;
-					//else return false;
+					if ( endNum >= i.startNum && endNum <= i.endNum ) return false;
 				}
 			}
 			else
@@ -584,10 +509,10 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 				if ( !IsAvailableDotCreate( relationShip.startNum, num ) )
 				{
-					NotifyBox.Show( this, "오류", "Error", "지점이 겹칩니다.", NotifyBox.NotifyBoxType.OK, NotifyBox.NotifyBoxIcon.Warning );
+					NotifyBox.Show( this, "오류", "Error", "지점이 충돌합니다, 다른 지점을 선택하세요.", NotifyBox.NotifyBoxType.OK, NotifyBox.NotifyBoxIcon.Warning );
 
 					isEndDotMode = false;
-					this.DOT_LIST.Controls.RemoveAt( dotRelationship[ dotRelationship.Count - 1 ].startDotControlIndex );
+					this.DOT_LIST.Controls.Remove( relationShip.startDotControl );
 					dotRelationship.RemoveAt( dotRelationship.Count - 1 );
 
 					this.DOT_LIST.Invalidate( );
@@ -619,6 +544,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 				relationShip.endControlIndex = controlIndex;
 				relationShip.endDotControlIndex = this.DOT_LIST.Controls.Count - 1;
 				relationShip.endDotControlPos = dot.Location;
+				relationShip.endDotControl = dot;
 
 				isEndDotMode = false;
 
@@ -626,12 +552,6 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			}
 			else // start dot 이 없으면 start mode
 			{
-				//if ( !IsAvailableDotCreate( num ) )
-				//{
-				//	NotifyBox.Show( this, "오류", "Error", "지점이 겹칩니다.", NotifyBox.NotifyBoxType.OK, NotifyBox.NotifyBoxIcon.Warning );
-				//	return;
-				//}
-
 				WebtoonDownloadDetailSectionDotForm dot = new WebtoonDownloadDetailSectionDotForm( true )
 				{
 					Location = new Point( this.WEBTOON_NUM_LIST.Controls[ controlIndex ].Location.X, 20 )
@@ -644,7 +564,8 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 					startNum = num,
 					startControlIndex = controlIndex,
 					startDotControlPos = dot.Location,
-					startDotControlIndex = this.DOT_LIST.Controls.Count
+					startDotControlIndex = this.DOT_LIST.Controls.Count,
+					startDotControl = dot
 				};
 
 				dotRelationship.Add( relationShip );
@@ -702,7 +623,6 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			}
 		}
 
-
 		private void WebtoonDownloadDetailSectionForm_Paint( object sender, PaintEventArgs e )
 		{
 			int w = this.Width, h = this.Height;
@@ -737,18 +657,9 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			}
 		}
 
-		//private void WEBTOON_END_NUMBER_Leave( object sender, EventArgs e )
-		//{
-		//	CallGetSpecificWebtoonDetailPageInformations( ( int ) this.WEBTOON_END_NUMBER.Value, ( NaverWebtoon.WebtoonDetailPageInformations info ) =>
-		//	{
-		//		this.END_THUMBNAIL_IMAGE.Load( info.thumbnail );
-		//		this.END_TITLE_LABEL.Text = info.title;
-		//	} );
-		//}
-
 		private void WebtoonDownloadOptionForm_Shown( object sender, EventArgs e )
 		{
-
+			NotifyBox.Show( this, "정보", "Information", "다운로드 할 화를 구간을 정해서 지정하십시오,\n시작 지점을 클릭하고 끝 지점을 클릭하면 시작 지점부터 끝 지점까지 다운로드 할 수 있습니다,\n지점의 수는 제한이 없습니다.", NotifyBox.NotifyBoxType.OK, NotifyBox.NotifyBoxIcon.Information );
 		}
 
 		byte dotCount = 0;
@@ -770,25 +681,6 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 		private bool APP_TITLE_BAR_BeginClose( )
 		{
 			return true;
-		}
-
-		private Image ImageQualityChange( Image baseImage, int quality )
-		{
-			using ( MemoryStream stream = new MemoryStream( ) )
-			{
-				using ( Bitmap image = new Bitmap( baseImage ) )
-				{
-					ImageCodecInfo encoder = ImageCodecInfo.GetImageEncoders( ).First( c => c.FormatID == ImageFormat.Jpeg.Guid );
-
-					using ( EncoderParameters encodingParams = new EncoderParameters( 1 ) )
-					{
-						encodingParams.Param[ 0 ] = new EncoderParameter( Encoder.Quality, ( long ) quality );
-						image.Save( stream, encoder, encodingParams );
-
-						return Image.FromStream( stream );
-					}
-				}
-			}
 		}
 
 		private void POPUP_INFO_PANEL_Paint( object sender, PaintEventArgs e )
@@ -845,11 +737,6 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 				if ( i.endNum > 0 )
 				{
-					//e.Graphics.DrawLine( pen,
-					//	new Point( collection[ i.startControlIndex ].Location.X + 10, 13 ),
-					//	new Point( collection[ i.endControlIndex ].Location.X + 10, 13 )
-					//);
-
 					e.Graphics.DrawLines( pen,
 						new Point[ ] {
 							new Point( collection[ i.startControlIndex ].Location.X + 15, 20 ),
@@ -908,36 +795,32 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 				}
 			}
 
-			//foreach ( int i in result )
-			//{
-			//	File.AppendAllText( "log2.txt", i + Environment.NewLine );
-			//}
-
 			Animation.UI.FadeOut( this, true );
 		}
 	}
 
 	[Serializable]
-	public struct WebtoonSectionCacheStruct
+	public struct WebtoonSectionCacheStruct // Serialize 될 수 있는 Section 캐싱 구조체
 	{
 		public string title;
 		public int num;
 		public string thumbnailBase64;
 	}
 
-	// Dot 관계 설정용
-	public class WebtoonSectionDotRelationShip
+	public class WebtoonSectionDotRelationShip // Section 관계 구조체
 	{
 		public int page; // 현재 Index 페이지
 
 		public int startNum; // start 웹툰 화
 		public int startControlIndex; // start control index
 		public int startDotControlIndex; // start dot control index
+		public WebtoonDownloadDetailSectionDotForm startDotControl;
 		public Point startDotControlPos;
 
 		public int endNum; // end 웹툰 화
 		public int endControlIndex; // end control index
 		public int endDotControlIndex; // end dot control index
+		public WebtoonDownloadDetailSectionDotForm endDotControl;
 		public Point endDotControlPos;
 	}
 }

@@ -9,7 +9,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 	{
 		private Image image;
 		private Brush maskBrush = new SolidBrush( Color.White );
-		public event Action<int> DotMouseRightClicked;
+		public event Action<int> DotMouseRightClicked; // 점을 마우스 오른쪽 클릭 했을 때
 
 		public WebtoonDownloadDetailSectionDotForm( bool isStartDot )
 		{
@@ -17,12 +17,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 			this.SetStyle( ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true );
 			this.UpdateStyles( );
-
-			////if ( isStartDot )
-			////	this.BackgroundImage = Properties.Resources.SECTION_START_DOT;
-			////else
-			////	this.BackgroundImage = Properties.Resources.SECTION_END_DOT;
-
+			
 			if ( isStartDot )
 				this.image = Properties.Resources.SECTION_START_DOT;
 			else
@@ -34,14 +29,13 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 				this.maskBrush = new SolidBrush( Color.White )
 				{
-					Color = Color.FromArgb( (int)alpha, Color.White )
+					Color = Color.FromArgb( ( int ) alpha, Color.White )
 				};
 
 				this.Invalidate( );
 			}, ( float alpha ) =>
 			{
 				if ( this == null || this.IsDisposed || this.Disposing ) return;
-
 				this.Invalidate( );
 			} );
 		}

@@ -13,6 +13,8 @@ using System.Web;
 
 #pragma warning disable 0168
 
+// 웹툰 다운로더 테스트용 프로젝트
+
 namespace Tester
 {
 	class Program

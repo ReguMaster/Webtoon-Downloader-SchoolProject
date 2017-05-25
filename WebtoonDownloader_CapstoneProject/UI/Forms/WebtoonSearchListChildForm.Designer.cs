@@ -53,7 +53,6 @@
 			this.TITLE_LABEL.TabIndex = 11;
 			this.TITLE_LABEL.Text = "웹툰 이름";
 			this.TITLE_LABEL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.TITLE_LABEL.Click += new System.EventHandler(this.TITLE_LABEL_Click);
 			// 
 			// DESC_LABEL
 			// 
@@ -146,7 +145,6 @@
 			this.Controls.Add(this.TITLE_LABEL);
 			this.Name = "WebtoonSearchListChildForm";
 			this.Size = new System.Drawing.Size(650, 150);
-			this.Load += new System.EventHandler(this.WebtoonSearchListChildForm_Load);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.WebtoonSearchListChildForm_Paint);
 			((System.ComponentModel.ISupportInitialize)(this.STORE_ICON)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.ADULT_ICON)).EndInit();

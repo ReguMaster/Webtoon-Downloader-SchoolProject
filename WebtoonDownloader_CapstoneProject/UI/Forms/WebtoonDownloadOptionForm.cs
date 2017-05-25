@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Resources;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebtoonDownloader_CapstoneProject.Core;
@@ -14,10 +13,10 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 	public partial class WebtoonDownloadOptionForm : Form
 	{
 		private Pen lineDrawer = new Pen( GlobalVar.ThemeColor );
-		private string url;
+		private string url; // 다운로드 할 웹툰의 list.nhn url
 		public bool ForceClosed; // 닫기 버튼을 강제로 눌렀는지 확인
-		private int randomImageCount;
-		private string[ ] exampleImages;
+		private int randomImageCount; // 이미지 품질 설정의 현재 랜덤 카운트
+		private string[ ] exampleImages; // 이미지 품질 설정의 프리뷰 이미지 배열
 		private List<WebtoonSectionDotRelationShip> dotRelationshipCached; // WebtoonDownloadDetailSectionForm을 다시 열었을 때 정리되지 않은 데이터를 복구할 용도로 만듬
 
 		public WebtoonDownloadOptionForm( string url )
@@ -36,10 +35,12 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 		{
 			Animation.UI.FadeIn( this );
 
+			// 프리뷰 이미지를 프로그램 경로\resources\exampleImages 경로 안에서 가져옴 이름 패턴은 QUALITY_SAMPLE_0 이 되어야함
 			exampleImages = Directory.GetFiles( GlobalVar.APPLICATION_DIRECTORY + @"\resources\exampleImages", "QUALITY_SAMPLE*.jpg" );
 
 			if ( exampleImages.Length > 0 )
 			{
+				this.QUALITY_EXAMPLE_IMAGE.Image = ImageQualityChange( Image.FromFile( exampleImages[ 0 ] ), this.QUALITY_VALUE_BAR.Value );
 				this.QUALITY_EXAMPLE_NOT_AVAILABLE.Visible = false;
 			}
 			else
@@ -70,16 +71,6 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			this.WEBTOON_END_NUMBER.Minimum = Math.Max( WEBTOON_BEGIN_NUMBER.Value + 1, 1 );
 		}
 
-		private void WEBTOON_BEGIN_NUMBER_Enter( object sender, EventArgs e )
-		{
-
-		}
-
-		private void WEBTOON_END_NUMBER_Enter( object sender, EventArgs e )
-		{
-
-		}
-
 		private void CallGetSpecificWebtoonDetailPageInformations( int num, Action<NaverWebtoon.WebtoonDetailPageInformations> callback )
 		{
 			Task.Factory.StartNew( ( ) =>
@@ -89,12 +80,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 				if ( info.HasValue )
 				{
 					if ( this.InvokeRequired )
-					{
-						this.Invoke( new Action( ( ) =>
-						{
-							callback.Invoke( info.Value );
-						} ) );
-					}
+						this.Invoke( new Action( ( ) => callback.Invoke( info.Value ) ) );
 					else
 						callback.Invoke( info.Value );
 				}
@@ -134,7 +120,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 			this.DOWNLOAD_BUTTON.Visible = false;
 
-			Task.Factory.StartNew( ( ) =>
+			Task.Factory.StartNew( async ( ) =>
 			{
 				int maxWebtoonList = NaverWebtoon.GetWebtoonListCount( this.url );
 
@@ -146,7 +132,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 						this.BEGIN_TITLE_LABEL.Text = info.title;
 					} );
 
-					//await Task.Delay( 1000 );
+					await Task.Delay( 1000 );
 
 					CallGetSpecificWebtoonDetailPageInformations( maxWebtoonList, ( NaverWebtoon.WebtoonDetailPageInformations info ) =>
 					{
@@ -225,8 +211,8 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 				NotifyBox.Show( this, "오류", "Error", "다운로드 구간 설정에 의해 다운로드 할 화가 없습니다.", NotifyBox.NotifyBoxType.OK, NotifyBox.NotifyBoxIcon.Warning );
 				return;
 			}
-			// 다운로드 옵션 설정
 
+			// 다운로드 옵션 설정
 			GlobalVar.BeginDownloadDetailNum = ( int ) this.WEBTOON_BEGIN_NUMBER.Value;
 			GlobalVar.EndDownloadDetailNum = ( int ) this.WEBTOON_END_NUMBER.Value;
 			GlobalVar.QualityOption = this.QUALITY_VALUE_BAR.Value;
@@ -268,7 +254,6 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 		private bool APP_TITLE_BAR_BeginClose( )
 		{
-#if ( RELEASE )
 			if ( NotifyBox.Show( this, "다운로드 취소", "Cancel", "정말로 다운로드를 취소하시겠습니까?", NotifyBox.NotifyBoxType.YesNo, NotifyBox.NotifyBoxIcon.Warning ) == NotifyBox.NotifyBoxResult.Yes )
 			{
 				this.ForceClosed = true;
@@ -276,11 +261,6 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			}
 
 			return false;
-#else
-			this.ForceClosed = true;
-
-			return true;
-#endif
 		}
 
 		private void QUALITY_VALUE_BAR_ValueChanged( object sender, EventArgs e )
@@ -288,29 +268,17 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			int value = this.QUALITY_VALUE_BAR.Value;
 
 			if ( value >= 100 )
-			{
 				this.QUALITY_VALUE_HINT.Text = "최상";
-			}
 			else if ( value >= 80 )
-			{
 				this.QUALITY_VALUE_HINT.Text = "매우 좋음";
-			}
 			else if ( value >= 70 )
-			{
 				this.QUALITY_VALUE_HINT.Text = "좋음";
-			}
 			else if ( value >= 50 )
-			{
 				this.QUALITY_VALUE_HINT.Text = "보통";
-			}
 			else if ( value >= 20 )
-			{
 				this.QUALITY_VALUE_HINT.Text = "낮음";
-			}
 			else if ( value <= 0 )
-			{
 				this.QUALITY_VALUE_HINT.Text = "최하";
-			}
 
 			if ( File.Exists( exampleImages[ randomImageCount ] ) )
 			{
@@ -342,13 +310,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 				}
 			}
 		}
-
-		//private int CalcSize( int quality )
-		//{
-		//	return ( 230 * 10 ) / ( 100 - quality );
-		//	//SIZE_SIMULATE_LABEL
-		//}
-
+		
 		private void QUALITY_OPTION_PANEL_Paint( object sender, PaintEventArgs e )
 		{
 			int w = this.QUALITY_OPTION_PANEL.Width, h = this.QUALITY_OPTION_PANEL.Height;
@@ -358,13 +320,10 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 		private void RANDOM_IMAGE_BUTTON_Click( object sender, EventArgs e )
 		{
-			//string[ ] files = Directory.GetFiles( GlobalVar.APPLICATION_DIRECTORY + @"\resources\exampleImages", "QUALITY_SAMPLE*.jpg" );
 			if ( exampleImages.Length == 0 ) return;
 
 			if ( randomImageCount >= exampleImages.Length - 1 )
-			{
 				randomImageCount = 0;
-			}
 			else
 				randomImageCount++;
 

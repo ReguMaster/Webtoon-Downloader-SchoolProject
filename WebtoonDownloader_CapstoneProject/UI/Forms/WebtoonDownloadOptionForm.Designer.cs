@@ -31,6 +31,8 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WebtoonDownloadOptionForm));
 			this.DOWNLOAD_OPTION_PANEL = new System.Windows.Forms.Panel();
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON = new WebtoonDownloader_CapstoneProject.UI.FlatButton();
+			this.DOWNLOAD_SECTION_SETED_LABEL = new System.Windows.Forms.Label();
 			this.DOWNLOAD_READY_IMAGE = new System.Windows.Forms.PictureBox();
 			this.LEFT_LABEL = new System.Windows.Forms.Label();
 			this.END_TITLE_LABEL = new System.Windows.Forms.Label();
@@ -53,7 +55,7 @@
 			this.QUALITY_EXAMPLE_NOT_AVAILABLE = new System.Windows.Forms.Label();
 			this.RANDOM_IMAGE_BUTTON = new System.Windows.Forms.PictureBox();
 			this.QUALITY_EXAMPLE_TITLE = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
+			this.QUALITY_HINT_LABEL = new System.Windows.Forms.Label();
 			this.QUALITY_EXAMPLE_IMAGE = new System.Windows.Forms.PictureBox();
 			this.QUALITY_VALUE_HINT = new System.Windows.Forms.Label();
 			this.QUALITY_VALUE_BAR = new System.Windows.Forms.TrackBar();
@@ -62,8 +64,6 @@
 			this.CREATE_VIEWER_CHECKBOX = new WebtoonDownloader_CapstoneProject.UI.FlatCheckBox();
 			this.BGM_DOWNLOAD_CHECKBOX = new WebtoonDownloader_CapstoneProject.UI.FlatCheckBox();
 			this.TOOL_TIP = new System.Windows.Forms.ToolTip(this.components);
-			this.DOWNLOAD_SECTION_SETED_LABEL = new System.Windows.Forms.Label();
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON = new WebtoonDownloader_CapstoneProject.UI.FlatButton();
 			this.DOWNLOAD_OPTION_PANEL.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.DOWNLOAD_READY_IMAGE)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.END_THUMBNAIL_IMAGE)).BeginInit();
@@ -102,11 +102,46 @@
 			this.DOWNLOAD_OPTION_PANEL.Visible = false;
 			this.DOWNLOAD_OPTION_PANEL.Paint += new System.Windows.Forms.PaintEventHandler(this.DOWNLOAD_OPTION_PANEL_Paint);
 			// 
+			// DOWNLOAD_SECTION_DETAIL_BUTTON
+			// 
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.AnimationLerpP = 0.8F;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.BackColor = System.Drawing.Color.Transparent;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.ButtonText = "다운로드 구간 세부 설정";
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.ButtonTextColor = System.Drawing.Color.Black;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.EnterStateBackgroundColor = System.Drawing.Color.Gainsboro;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Location = new System.Drawing.Point(507, 4);
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Name = "DOWNLOAD_SECTION_DETAIL_BUTTON";
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.NormalStateBackgroundColor = System.Drawing.Color.WhiteSmoke;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Size = new System.Drawing.Size(166, 40);
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.TabIndex = 23;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.TabStop = false;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Text = "다운로드 구간 세부 설정";
+			this.TOOL_TIP.SetToolTip(this.DOWNLOAD_SECTION_DETAIL_BUTTON, "다운로드 구간을 세부 설정합니다.");
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.UseVisualStyleBackColor = false;
+			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Click += new System.EventHandler(this.DOWNLOAD_SECTION_DETAIL_BUTTON_Click);
+			// 
+			// DOWNLOAD_SECTION_SETED_LABEL
+			// 
+			this.DOWNLOAD_SECTION_SETED_LABEL.AutoSize = true;
+			this.DOWNLOAD_SECTION_SETED_LABEL.BackColor = System.Drawing.Color.Transparent;
+			this.DOWNLOAD_SECTION_SETED_LABEL.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.DOWNLOAD_SECTION_SETED_LABEL.Location = new System.Drawing.Point(200, 146);
+			this.DOWNLOAD_SECTION_SETED_LABEL.Name = "DOWNLOAD_SECTION_SETED_LABEL";
+			this.DOWNLOAD_SECTION_SETED_LABEL.Size = new System.Drawing.Size(300, 19);
+			this.DOWNLOAD_SECTION_SETED_LABEL.TabIndex = 22;
+			this.DOWNLOAD_SECTION_SETED_LABEL.Text = "다운로드 구간 세부 설정이 적용되었습니다.";
+			this.DOWNLOAD_SECTION_SETED_LABEL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.DOWNLOAD_SECTION_SETED_LABEL.Visible = false;
+			// 
 			// DOWNLOAD_READY_IMAGE
 			// 
 			this.DOWNLOAD_READY_IMAGE.BackColor = System.Drawing.Color.Transparent;
 			this.DOWNLOAD_READY_IMAGE.Image = global::WebtoonDownloader_CapstoneProject.Properties.Resources.DOWN;
-			this.DOWNLOAD_READY_IMAGE.Location = new System.Drawing.Point(4, 2);
+			this.DOWNLOAD_READY_IMAGE.Location = new System.Drawing.Point(2, 2);
 			this.DOWNLOAD_READY_IMAGE.Name = "DOWNLOAD_READY_IMAGE";
 			this.DOWNLOAD_READY_IMAGE.Size = new System.Drawing.Size(40, 40);
 			this.DOWNLOAD_READY_IMAGE.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -172,7 +207,7 @@
 			this.DOWNLOAD_OPTION_TITLE.AutoSize = true;
 			this.DOWNLOAD_OPTION_TITLE.BackColor = System.Drawing.Color.Transparent;
 			this.DOWNLOAD_OPTION_TITLE.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.DOWNLOAD_OPTION_TITLE.Location = new System.Drawing.Point(51, 14);
+			this.DOWNLOAD_OPTION_TITLE.Location = new System.Drawing.Point(49, 14);
 			this.DOWNLOAD_OPTION_TITLE.Name = "DOWNLOAD_OPTION_TITLE";
 			this.DOWNLOAD_OPTION_TITLE.Size = new System.Drawing.Size(96, 17);
 			this.DOWNLOAD_OPTION_TITLE.TabIndex = 15;
@@ -228,7 +263,6 @@
             0,
             0});
 			this.WEBTOON_END_NUMBER.ValueChanged += new System.EventHandler(this.WEBTOON_END_NUMBER_ValueChanged);
-			this.WEBTOON_END_NUMBER.Enter += new System.EventHandler(this.WEBTOON_END_NUMBER_Enter);
 			this.WEBTOON_END_NUMBER.Leave += new System.EventHandler(this.WEBTOON_END_NUMBER_Leave);
 			// 
 			// WEBTOON_BEGIN_NUMBER
@@ -256,7 +290,6 @@
             0,
             0});
 			this.WEBTOON_BEGIN_NUMBER.ValueChanged += new System.EventHandler(this.WEBTOON_BEGIN_NUMBER_ValueChanged);
-			this.WEBTOON_BEGIN_NUMBER.Enter += new System.EventHandler(this.WEBTOON_BEGIN_NUMBER_Enter);
 			this.WEBTOON_BEGIN_NUMBER.Leave += new System.EventHandler(this.WEBTOON_BEGIN_NUMBER_Leave);
 			// 
 			// LOADING_LABEL
@@ -344,7 +377,7 @@
 			this.QUALITY_OPTION_PANEL.Controls.Add(this.QUALITY_EXAMPLE_NOT_AVAILABLE);
 			this.QUALITY_OPTION_PANEL.Controls.Add(this.RANDOM_IMAGE_BUTTON);
 			this.QUALITY_OPTION_PANEL.Controls.Add(this.QUALITY_EXAMPLE_TITLE);
-			this.QUALITY_OPTION_PANEL.Controls.Add(this.label1);
+			this.QUALITY_OPTION_PANEL.Controls.Add(this.QUALITY_HINT_LABEL);
 			this.QUALITY_OPTION_PANEL.Controls.Add(this.QUALITY_EXAMPLE_IMAGE);
 			this.QUALITY_OPTION_PANEL.Controls.Add(this.QUALITY_VALUE_HINT);
 			this.QUALITY_OPTION_PANEL.Controls.Add(this.QUALITY_VALUE_BAR);
@@ -391,6 +424,7 @@
 			this.RANDOM_IMAGE_BUTTON.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.RANDOM_IMAGE_BUTTON.TabIndex = 26;
 			this.RANDOM_IMAGE_BUTTON.TabStop = false;
+			this.TOOL_TIP.SetToolTip(this.RANDOM_IMAGE_BUTTON, "다음 이미지");
 			this.RANDOM_IMAGE_BUTTON.Click += new System.EventHandler(this.RANDOM_IMAGE_BUTTON_Click);
 			// 
 			// QUALITY_EXAMPLE_TITLE
@@ -405,16 +439,16 @@
 			this.QUALITY_EXAMPLE_TITLE.Text = "미리보기 이미지";
 			this.QUALITY_EXAMPLE_TITLE.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// label1
+			// QUALITY_HINT_LABEL
 			// 
-			this.label1.BackColor = System.Drawing.Color.Transparent;
-			this.label1.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.label1.Location = new System.Drawing.Point(16, 105);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(295, 46);
-			this.label1.TabIndex = 24;
-			this.label1.Text = "품질이 높아지면 용량이 커지고 품질이 낮아지면 용량이 작아집니다\r\n품질 조정에 따라 최대 1/3 까지 용량을 줄일 수 있습니다.";
-			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.QUALITY_HINT_LABEL.BackColor = System.Drawing.Color.Transparent;
+			this.QUALITY_HINT_LABEL.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.QUALITY_HINT_LABEL.Location = new System.Drawing.Point(16, 105);
+			this.QUALITY_HINT_LABEL.Name = "QUALITY_HINT_LABEL";
+			this.QUALITY_HINT_LABEL.Size = new System.Drawing.Size(295, 46);
+			this.QUALITY_HINT_LABEL.TabIndex = 24;
+			this.QUALITY_HINT_LABEL.Text = "품질이 높아지면 용량이 커지고 품질이 낮아지면 용량이 작아집니다\r\n품질 조정에 따라 최대 1/3 까지 용량을 줄일 수 있습니다.";
+			this.QUALITY_HINT_LABEL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// QUALITY_EXAMPLE_IMAGE
 			// 
@@ -454,7 +488,7 @@
 			// 
 			this.QUALITY_OPTION_IMAGE.BackColor = System.Drawing.Color.Transparent;
 			this.QUALITY_OPTION_IMAGE.Image = global::WebtoonDownloader_CapstoneProject.Properties.Resources.HD;
-			this.QUALITY_OPTION_IMAGE.Location = new System.Drawing.Point(4, 2);
+			this.QUALITY_OPTION_IMAGE.Location = new System.Drawing.Point(2, 2);
 			this.QUALITY_OPTION_IMAGE.Name = "QUALITY_OPTION_IMAGE";
 			this.QUALITY_OPTION_IMAGE.Size = new System.Drawing.Size(40, 40);
 			this.QUALITY_OPTION_IMAGE.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -466,7 +500,7 @@
 			this.QUALITY_OPTION_TITLE.AutoSize = true;
 			this.QUALITY_OPTION_TITLE.BackColor = System.Drawing.Color.Transparent;
 			this.QUALITY_OPTION_TITLE.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.QUALITY_OPTION_TITLE.Location = new System.Drawing.Point(51, 14);
+			this.QUALITY_OPTION_TITLE.Location = new System.Drawing.Point(49, 14);
 			this.QUALITY_OPTION_TITLE.Name = "QUALITY_OPTION_TITLE";
 			this.QUALITY_OPTION_TITLE.Size = new System.Drawing.Size(82, 17);
 			this.QUALITY_OPTION_TITLE.TabIndex = 15;
@@ -502,41 +536,6 @@
 			this.BGM_DOWNLOAD_CHECKBOX.TabIndex = 17;
 			this.BGM_DOWNLOAD_CHECKBOX.TabStop = false;
 			this.TOOL_TIP.SetToolTip(this.BGM_DOWNLOAD_CHECKBOX, "웹툰 화에 포함된 BGM(사운드) 파일을 다운로드 합니다.");
-			// 
-			// DOWNLOAD_SECTION_SETED_LABEL
-			// 
-			this.DOWNLOAD_SECTION_SETED_LABEL.AutoSize = true;
-			this.DOWNLOAD_SECTION_SETED_LABEL.BackColor = System.Drawing.Color.Transparent;
-			this.DOWNLOAD_SECTION_SETED_LABEL.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.DOWNLOAD_SECTION_SETED_LABEL.Location = new System.Drawing.Point(229, 146);
-			this.DOWNLOAD_SECTION_SETED_LABEL.Name = "DOWNLOAD_SECTION_SETED_LABEL";
-			this.DOWNLOAD_SECTION_SETED_LABEL.Size = new System.Drawing.Size(243, 15);
-			this.DOWNLOAD_SECTION_SETED_LABEL.TabIndex = 22;
-			this.DOWNLOAD_SECTION_SETED_LABEL.Text = "다운로드 구간 세부 설정이 적용되었습니다.";
-			this.DOWNLOAD_SECTION_SETED_LABEL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.DOWNLOAD_SECTION_SETED_LABEL.Visible = false;
-			// 
-			// DOWNLOAD_SECTION_DETAIL_BUTTON
-			// 
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.AnimationLerpP = 0.8F;
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.BackColor = System.Drawing.Color.Transparent;
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.ButtonText = "다운로드 구간 세부 설정";
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.ButtonTextColor = System.Drawing.Color.Black;
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.EnterStateBackgroundColor = System.Drawing.Color.DarkGray;
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Location = new System.Drawing.Point(507, 4);
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Name = "DOWNLOAD_SECTION_DETAIL_BUTTON";
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.NormalStateBackgroundColor = System.Drawing.Color.Gainsboro;
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Size = new System.Drawing.Size(166, 40);
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.TabIndex = 23;
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.TabStop = false;
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Text = "다운로드 구간 세부 설정";
-			this.TOOL_TIP.SetToolTip(this.DOWNLOAD_SECTION_DETAIL_BUTTON, "다운로드 구간을 세부 설정합니다.");
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.UseVisualStyleBackColor = false;
-			this.DOWNLOAD_SECTION_DETAIL_BUTTON.Click += new System.EventHandler(this.DOWNLOAD_SECTION_DETAIL_BUTTON_Click);
 			// 
 			// WebtoonDownloadOptionForm
 			// 
@@ -608,7 +607,7 @@
 		private System.Windows.Forms.Label QUALITY_OPTION_TITLE;
 		private System.Windows.Forms.TrackBar QUALITY_VALUE_BAR;
 		private System.Windows.Forms.Label QUALITY_VALUE_HINT;
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label QUALITY_HINT_LABEL;
 		private System.Windows.Forms.PictureBox QUALITY_EXAMPLE_IMAGE;
 		private System.Windows.Forms.PictureBox RANDOM_IMAGE_BUTTON;
 		private System.Windows.Forms.Label QUALITY_EXAMPLE_NOT_AVAILABLE;

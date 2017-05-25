@@ -65,7 +65,7 @@
 			this.SECTION_SET_BUTTON.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.SECTION_SET_BUTTON.AnimationLerpP = 0.8F;
 			this.SECTION_SET_BUTTON.BackColor = System.Drawing.Color.Transparent;
-			this.SECTION_SET_BUTTON.ButtonText = "구간 설정";
+			this.SECTION_SET_BUTTON.ButtonText = "설정 적용";
 			this.SECTION_SET_BUTTON.ButtonTextColor = System.Drawing.Color.Black;
 			this.SECTION_SET_BUTTON.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.SECTION_SET_BUTTON.EnterStateBackgroundColor = System.Drawing.Color.Gainsboro;
@@ -77,7 +77,7 @@
 			this.SECTION_SET_BUTTON.Size = new System.Drawing.Size(200, 50);
 			this.SECTION_SET_BUTTON.TabIndex = 5;
 			this.SECTION_SET_BUTTON.TabStop = false;
-			this.SECTION_SET_BUTTON.Text = "구간 설정";
+			this.SECTION_SET_BUTTON.Text = "설정 적용";
 			this.TOOL_TIP.SetToolTip(this.SECTION_SET_BUTTON, "설정한 구간을 적용합니다.");
 			this.SECTION_SET_BUTTON.UseVisualStyleBackColor = false;
 			this.SECTION_SET_BUTTON.Click += new System.EventHandler(this.SECTION_SET_BUTTON_Click);

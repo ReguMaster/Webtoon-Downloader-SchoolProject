@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebtoonDownloader_CapstoneProject.Core;
 
@@ -11,7 +8,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 	public partial class ProgramInformationForm : Form
 	{
 		private Pen lineDrawer = new Pen( GlobalVar.ThemeColor );
-		
+
 		public ProgramInformationForm( )
 		{
 			InitializeComponent( );

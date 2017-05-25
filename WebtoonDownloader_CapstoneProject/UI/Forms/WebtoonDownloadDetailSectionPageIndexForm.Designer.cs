@@ -37,7 +37,6 @@
 			this.BackColor = System.Drawing.Color.Transparent;
 			this.Name = "WebtoonDownloadDetailSectionPageIndexForm";
 			this.Size = new System.Drawing.Size(5, 30);
-			this.Load += new System.EventHandler(this.WebtoonDownloadDetailSectionPageIndexForm_Load);
 			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.WebtoonDownloadDetailSectionPageIndexForm_MouseDown);
 			this.ResumeLayout(false);
 

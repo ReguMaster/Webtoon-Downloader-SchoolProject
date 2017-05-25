@@ -2,15 +2,14 @@
 using System.Drawing;
 using System.Windows.Forms;
 using WebtoonDownloader_CapstoneProject.Core;
-using static WebtoonDownloader_CapstoneProject.Core.NaverWebtoon;
 
 namespace WebtoonDownloader_CapstoneProject.UI.Forms
 {
 	public partial class WebtoonSearchListChildForm : UserControl
 	{
 		private Pen lineDrawer = new Pen( GlobalVar.ThemeColor );
-		public event Action<string, bool[ ]> SelectWebtoon;
-		private WebtoonSearchResultList tempData;
+		public event Action<string, bool[ ]> SelectWebtoon; // 웹툰 선택 버튼을 눌를 때 실행되는 이벤트
+		private NaverWebtoon.WebtoonSearchResultList tempData;
 
 		public WebtoonSearchListChildForm( )
 		{
@@ -20,7 +19,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			this.UpdateStyles( );
 		}
 
-		public void Initialize( WebtoonSearchResultList data )
+		public void Initialize( NaverWebtoon.WebtoonSearchResultList data )
 		{
 			this.TITLE_LABEL.Text = data.title;
 			this.DESC_LABEL.Text = data.description;
@@ -46,21 +45,11 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			this.tempData = data;
 		}
 
-		private void WebtoonSearchListChildForm_Load( object sender, EventArgs e )
-		{
-
-		}
-
 		private void WebtoonSearchListChildForm_Paint( object sender, PaintEventArgs e )
 		{
 			int w = this.Width, h = this.Height;
 
 			e.Graphics.DrawLine( lineDrawer, 0, h - lineDrawer.Width, w, h - lineDrawer.Width ); // 아래
-		}
-
-		private void TITLE_LABEL_Click( object sender, EventArgs e )
-		{
-
 		}
 
 		private void SELECT_BUTTON_Click( object sender, EventArgs e )

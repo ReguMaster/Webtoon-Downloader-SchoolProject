@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using WebtoonDownloader_CapstoneProject.UI.Forms;
 
@@ -65,18 +61,8 @@ namespace WebtoonDownloader_CapstoneProject.Core
 					{
 						return default( T );
 					}
-				//default:
-				//	using ( FileStream stream = new FileStream( , FileMode.Open ) )
-				//	{
-				//		using ( StreamReader streamReader = new StreamReader( stream, Encoding.UTF8 ) )
-				//		{
-
-				//			return ( T ) streamReader.ReadToEnd( );
-				//		}
-				//	}
-				//	break;
 				default:
-					return default(T);
+					return default( T );
 			}
 		}
 	}

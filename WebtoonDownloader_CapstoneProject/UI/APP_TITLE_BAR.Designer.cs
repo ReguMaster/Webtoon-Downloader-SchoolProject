@@ -28,11 +28,13 @@
 		/// </summary>
 		private void InitializeComponent( )
 		{
+			this.components = new System.ComponentModel.Container();
 			this.APP_TITLE_ENG = new WebtoonDownloader_CapstoneProject.UI.CustomLabel();
 			this.APP_TITLE_KO = new WebtoonDownloader_CapstoneProject.UI.CustomLabel();
 			this.HELP_BUTTON = new System.Windows.Forms.PictureBox();
 			this.MINIMIZE_BUTTON = new System.Windows.Forms.PictureBox();
 			this.CLOSE_BUTTON = new System.Windows.Forms.PictureBox();
+			this.TOOL_TIP = new System.Windows.Forms.ToolTip(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.HELP_BUTTON)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.MINIMIZE_BUTTON)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.CLOSE_BUTTON)).BeginInit();
@@ -75,6 +77,7 @@
 			this.HELP_BUTTON.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.HELP_BUTTON.TabIndex = 4;
 			this.HELP_BUTTON.TabStop = false;
+			this.TOOL_TIP.SetToolTip(this.HELP_BUTTON, "정보");
 			this.HELP_BUTTON.Click += new System.EventHandler(this.HELP_BUTTON_Click);
 			// 
 			// MINIMIZE_BUTTON
@@ -89,6 +92,7 @@
 			this.MINIMIZE_BUTTON.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.MINIMIZE_BUTTON.TabIndex = 3;
 			this.MINIMIZE_BUTTON.TabStop = false;
+			this.TOOL_TIP.SetToolTip(this.MINIMIZE_BUTTON, "최소화");
 			this.MINIMIZE_BUTTON.Click += new System.EventHandler(this.MINIMIZE_BUTTON_Click);
 			// 
 			// CLOSE_BUTTON
@@ -103,6 +107,7 @@
 			this.CLOSE_BUTTON.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.CLOSE_BUTTON.TabIndex = 2;
 			this.CLOSE_BUTTON.TabStop = false;
+			this.TOOL_TIP.SetToolTip(this.CLOSE_BUTTON, "닫기");
 			this.CLOSE_BUTTON.Click += new System.EventHandler(this.CLOSE_BUTTON_Click);
 			// 
 			// APP_TITLE_BAR
@@ -135,5 +140,6 @@
 		private System.Windows.Forms.PictureBox CLOSE_BUTTON;
 		private System.Windows.Forms.PictureBox MINIMIZE_BUTTON;
 		private System.Windows.Forms.PictureBox HELP_BUTTON;
+		private System.Windows.Forms.ToolTip TOOL_TIP;
 	}
 }

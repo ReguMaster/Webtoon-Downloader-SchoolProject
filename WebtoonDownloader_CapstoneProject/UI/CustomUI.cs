@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Windows.Forms;
 using WebtoonDownloader_CapstoneProject.Core;
@@ -51,7 +49,7 @@ namespace WebtoonDownloader_CapstoneProject.UI
 			//}
 		}
 	}
-	
+
 	//http://stackoverflow.com/questions/16989957/drawing-over-richtextbox
 	class RichBox : RichTextBox
 	{

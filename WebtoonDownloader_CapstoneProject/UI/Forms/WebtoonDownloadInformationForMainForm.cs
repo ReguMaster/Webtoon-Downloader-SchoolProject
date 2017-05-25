@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
-using static WebtoonDownloader_CapstoneProject.Core.NaverWebtoon;
+using WebtoonDownloader_CapstoneProject.Core;
 
 namespace WebtoonDownloader_CapstoneProject.UI.Forms
 {
 	public partial class WebtoonDownloadInformationForMainForm : UserControl
 	{
-		//private Pen lineDrawer = new Pen( GlobalVar.ThemeColor )
-		//{
-		//	Width = 2
-		//};
-
 		public WebtoonDownloadInformationForMainForm( )
 		{
 			InitializeComponent( );
@@ -19,7 +14,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			this.UpdateStyles( );
 		}
 
-		public void SetData( WebtoonListSpecificPageInformations info, bool useAnimation )
+		public void SetData( NaverWebtoon.WebtoonListSpecificPageInformations info, bool useAnimation )
 		{
 			if ( string.IsNullOrEmpty( info.thumbnail ) )
 				this.THUMBNAIL_IMAGE.Image = null;
@@ -31,7 +26,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 				}
 				catch ( Exception ex )
 				{
-					Core.Util.WriteErrorLog( ex );
+					Util.WriteErrorLog( ex );
 				}
 			}
 
@@ -58,12 +53,5 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 		//	//this.PROGRESS_BAR.Progress = ( int ) ( per * 100 );
 		//	//this.DOWNLOAD_PERCENT_LABEL.Text =( ( int ) (per*100)).ToString() + " %";
 		//}
-
-		private void WebtoonDownloadInformationForMainForm_Paint( object sender, PaintEventArgs e )
-		{
-			//int w = this.Width, h = this.Height;
-
-			//e.Graphics.DrawLine( lineDrawer, 0, h - lineDrawer.Width, w, h - lineDrawer.Width ); // 아래
-		}
 	}
 }

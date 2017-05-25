@@ -12,12 +12,12 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 	{
 		private Pen lineDrawer = new Pen( GlobalVar.ThemeColor );
 
-		public enum UIMode
+		public enum UIMode // 인터페이스 모드
 		{
-			NotSelected,
-			QuestionIsRight,
-			Selected,
-			LoadingInformation
+			NotSelected, // 웹툰이 선택되지 않음
+			QuestionIsRight, // 선택한 웹툰이 맞는지 물어보는 모드
+			Selected, // 웹툰이 선택됨
+			LoadingInformation // 정보 가져오는 중
 		}
 		private UIMode UIModeVar_private;
 		private UIMode UIModeVar
@@ -30,59 +30,11 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			{
 				UIModeVar_private = value;
 
-				if ( this.InvokeRequired )
-				{
-					this.Invoke( new Action( ( ) =>
-					{
-						switch ( value )
-						{
-							case UIMode.NotSelected: // 선택되지 않은 환경
-								this.SELECT_CANCEL_BUTTON.Visible = false;
-								this.SELECTED_WEBTOON_INFORMATION_PANEL_TITLE.Visible = false;
-								this.SELECTED_WEBTOON_INFORMATION_PANEL.Visible = false;
-
-								this.DATA_TEXTBOX_TITLE.Visible = true;
-								this.DATA_TEXTBOX.Visible = true;
-								this.DATA_TEXTBOX.Enabled = true;
-								this.DATA_TEXTBOX.Clear( );
-
-								this.SEARCH_BUTTON.Enabled = true;
-								this.SEARCH_BUTTON.Text = "검색 & 선택";
-
-								this.Size = new Size( 700, 255 );
-								CenterToScreen( );
-
-								this.Invalidate( );
-								break;
-							case UIMode.LoadingInformation:
-								this.DATA_TEXTBOX.Enabled = false;
-								this.SEARCH_BUTTON.Enabled = false;
-								this.SEARCH_BUTTON.Text = "잠시만 기다리세요 ...";
-								break;
-							case UIMode.QuestionIsRight:
-								this.DATA_TEXTBOX_TITLE.Visible = false;
-								this.DATA_TEXTBOX.Visible = false;
-
-								this.SEARCH_BUTTON.Enabled = true;
-								this.SEARCH_BUTTON.Text = "맞습니다!";
-
-								this.SELECT_CANCEL_BUTTON.Visible = true;
-								this.SELECTED_WEBTOON_INFORMATION_PANEL_TITLE.Visible = true;
-								this.SELECTED_WEBTOON_INFORMATION_PANEL.Visible = true;
-
-								this.Size = new Size( 700, 400 );
-								CenterToScreen( );
-
-								this.Invalidate( );
-								break;
-						}
-					} ) );
-				}
-				else
+				Action method = new Action( ( ) =>
 				{
 					switch ( value )
 					{
-						case UIMode.NotSelected: // 선택되지 않은 환경
+						case UIMode.NotSelected:
 							this.SELECT_CANCEL_BUTTON.Visible = false;
 							this.SELECTED_WEBTOON_INFORMATION_PANEL_TITLE.Visible = false;
 							this.SELECTED_WEBTOON_INFORMATION_PANEL.Visible = false;
@@ -122,10 +74,22 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 							this.Invalidate( );
 							break;
 					}
+				} );
+
+				if ( this.InvokeRequired )
+				{
+					this.Invoke( new Action( ( ) =>
+					{
+						method.Invoke( );
+					} ) );
+				}
+				else
+				{
+					method.Invoke( );
 				}
 			}
 		}
-		private NaverWebtoon.WebtoonListPageInformations? SelectedInformationBuffer;
+		private NaverWebtoon.WebtoonListPageInformations? SelectedInformationBuffer; // 선택된 웹툰의 정보 temp
 
 		public WebtoonSelectForm( )
 		{
@@ -137,8 +101,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			this.Opacity = 0;
 			this.UIModeVar = UIMode.NotSelected;
 
-
-#if (DEBUG)
+#if ( DEBUG )
 			// TEST 용
 			this.DATA_TEXTBOX.Text = "http://comic.naver.com/webtoon/list.nhn?titleId=570503&weekday=thu";
 #endif
@@ -179,7 +142,10 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 					return;
 				}
 
-				//"^http(s)?://([\w-]+.)+[\w-]+(/[\w- ./?%&=])?$"
+				// ** 버그 리스트 **
+				// 현재 url 끝에 # 이 붙어있으면 프로그램이 잠시 멈추는 문제가 있음
+
+				// 입력한 정보가 URL 인지 웹툰 제목인지 확인한 후 작업 실시
 				if ( Regex.IsMatch( searchString, @"^http(s)?://([\w-]+.)+[\w-]+(/[\w- ./?%&=])?$" ) )
 				{
 					if ( NaverWebtoon.IsValidWebtoonListURL( ref searchString ) )
@@ -196,7 +162,6 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 								this.UIModeVar = UIMode.QuestionIsRight;
 								this.SELECTED_WEBTOON_INFORMATION_PANEL.SetData( this.SelectedInformationBuffer.Value );
-								//MessageBox.Show( informations.Value.title + Environment.NewLine + informations.Value.description );
 							}
 							else
 							{
@@ -232,7 +197,6 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 								this.UIModeVar = UIMode.QuestionIsRight;
 								this.SELECTED_WEBTOON_INFORMATION_PANEL.SetData( this.SelectedInformationBuffer.Value );
-								//MessageBox.Show( informations.Value.title + Environment.NewLine + informations.Value.description );
 							}
 							else
 							{
@@ -267,8 +231,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 
 		private bool APP_TITLE_BAR_BeginClose( )
 		{
-			return true;
-			//return NotifyBox.Show( this, "다운로드 취소", "Cancel", "정말로 다운로드를 취소하시겠습니까?", NotifyBox.NotifyBoxType.YesNo, NotifyBox.NotifyBoxIcon.Warning ) == NotifyBox.NotifyBoxResult.Yes;
+			return NotifyBox.Show( this, "다운로드 취소", "Cancel", "정말로 다운로드를 취소하시겠습니까?", NotifyBox.NotifyBoxType.YesNo, NotifyBox.NotifyBoxIcon.Warning ) == NotifyBox.NotifyBoxResult.Yes;
 		}
 
 		private void DATA_TEXTBOX_KeyPress( object sender, KeyPressEventArgs e )
@@ -276,7 +239,7 @@ namespace WebtoonDownloader_CapstoneProject.UI.Forms
 			if ( e.KeyChar == ( char ) Keys.Enter )
 			{
 				this.SEARCH_BUTTON_Click( null, EventArgs.Empty );
-				e.Handled = true;
+				e.Handled = true; // 엔터 칠때 띵 소리가 나지 않게 함
 			}
 		}
 	}
